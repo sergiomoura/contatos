@@ -1,0 +1,27 @@
+{
+  "name": "contatos-ca-back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsnd --transpile-only --respawn ./src/main.ts",
+    "test": "vitest --ui",
+    "coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "@vitest/coverage-istanbul": "^0.28.2",
+    "@vitest/ui": "^0.28.2",
+    "eslint": "^8.32.0",
+    "eslint-config-standard-with-typescript": "^32.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.4",
+    "vitest": "^0.28.2",
+    "vitest-tsconfig-paths": "^3.4.1"
+  },
+  "dependencies": {}
+}

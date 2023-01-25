@@ -1,0 +1,20 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": "standard-with-typescript",
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "project": ["tsconfig.json"]
+    },
+    "rules": {
+        "padded-blocks":["error","always",{"allowSingleLineBlocks": true}],
+        "no-trailing-spaces":["error",{"skipBlankLines":true}],
+        "@typescript-eslint/consistent-type-assertions": ["error",{"assertionStyle":"angle-bracket"}],
+        "semi":"off",
+        "@typescript-eslint/semi": ["error","always"]
+    }
+}

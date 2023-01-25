@@ -1,0 +1,14 @@
+src/
+|-- main.ts (entry point da aplicação)
+|-- app/
+|   |-- controllers/ (Camada de interface, onde os controladores da API estão localizados)
+|   |-- usecases/ (Camada de negócio, onde as regras de negócio são implementadas)
+|   |-- entities/ (Camada de domínio, onde as entidades da aplicação são definidas)
+|   |-- middlewares/ (Camada de preprocessamento das requisições)
+|   |-- respositories/ (Camada responsável por lidar com as operações de banco de dados)
+|   |-- schemas/ (esquemas de validação dos dados de entrada)
+|-- infrastructure/ (Camada de infraestrutura, onde as dependências externas são gerenciadas, como banco de dados, serviços externos)
+|   |-- database/ (drivers de banco de dados, configurações de conexão)
+|   |-- services/ (integrações com serviços externos)
+|-- utils/ (pasta com funções auxiliares reutilizáveis)
+|-- types/ (definições de tipos e interfaces)
