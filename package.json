@@ -23,5 +23,7 @@
     "vitest": "^0.28.2",
     "vitest-tsconfig-paths": "^3.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "email-validator": "^2.0.4"
+  }
 }
