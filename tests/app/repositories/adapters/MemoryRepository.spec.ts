@@ -13,6 +13,8 @@ describe(
   () => {
     
     let repository: Repository;
+    let user: User;
+
     const validUserName = 'Jonh Doe';
     const validUserEmail = 'jonhdoe@test.com';
     const hashedPassword = 'hashedPassword';
@@ -20,33 +22,38 @@ describe(
     const unexistentUserEmail = 'nobody@test.com';
     const unexistentUserId = '000000';
     const unexistentContactId = '000000';
+    const unexistentEmailId = '000000';
 
-    const validEmail1 = Email.create('contact1@test1.com');
-    const validEmail2 = Email.create('contact2@test1.com');
-    const validEmail3 = Email.create('contact3@test1.com');
-    const validEmail4 = Email.create('contact4@test1.com');
-    const validEmail5 = Email.create('contact5@test1.com');
+    let validEmail1;
+    let validEmail2;
+    let validEmail3;
+    let validEmail4;
+    let validEmail5;
 
-    const validPhone1 = PhoneNumber.create('111111');
-    const validPhone2 = PhoneNumber.create('222222');
-    const validPhone3 = PhoneNumber.create('333333');
-    const validPhone4 = PhoneNumber.create('444444');
+    let validPhone1;
+    let validPhone2;
+    let validPhone3;
+    let validPhone4;
 
-    const contact1Emails = [validEmail1, validEmail2];
-    const contact1PhoneNumbers = [validPhone1, validPhone2];
-    const contact1 = Contact.create('Contact One', contact1Emails, contact1PhoneNumbers);
-    
-    const contact2Emails = [validEmail3, validEmail4];
-    const contact2PhoneNumbers = [validPhone3, validPhone4];
-    const contact2 = Contact.create('Contact One', contact2Emails, contact2PhoneNumbers);
-
-    let user: User;
+    let contact1;
+    let contact2;
 
     beforeEach(
       async () => {
 
         repository = new MemoryRepository();
         user = await repository.createUser(validUserName, validUserEmail, hashedPassword);
+        validEmail1 = Email.create('contact1@test1.com');
+        validEmail2 = Email.create('contact2@test1.com');
+        validEmail3 = Email.create('contact3@test1.com');
+        validEmail4 = Email.create('contact4@test1.com');
+        validEmail5 = Email.create('contact5@test1.com');
+        validPhone1 = PhoneNumber.create('111111');
+        validPhone2 = PhoneNumber.create('222222');
+        validPhone3 = PhoneNumber.create('333333');
+        validPhone4 = PhoneNumber.create('444444');
+        contact1 = Contact.create('Contact One');
+        contact2 = Contact.create('Contact One');
       
       }
     );
@@ -207,6 +214,32 @@ describe(
       }
 
     );
+
+    test('Should throw an error trying to delete unexistent email',
+      async () => {
+
+        const assertion = expect(async () => { await repository.deleteEmail(unexistentEmailId); });
+        await assertion.rejects.toThrowError(Errors.unexistentEmailError);
+      
+      }
+    );
+
+    test('Should delete email by its id',
+      async () => {
+
+        await repository.addContactToUser(user.id, contact1);
+        
+        await repository.addEmailToContact(contact1.id, validEmail1);
+        await repository.addEmailToContact(contact1.id, validEmail2);
+        await repository.addEmailToContact(contact1.id, validEmail3);
+        await repository.addEmailToContact(contact1.id, validEmail4);
+
+        await repository.deleteEmail(validEmail3.id);
+        const contacts = await repository.getContactsByUser(user.id);
+        const emails = contacts[contacts.length - 1].emails;
+        expect(emails).toEqual([validEmail1, validEmail2, validEmail4]);
+      
+      });
   
   }
 );

@@ -87,6 +87,15 @@ export class MemoryRepository implements Repository {
   
   }
 
+  async deleteEmail (emailId: string): Promise<void> {
+
+    const contact = this.findEmailOwner(emailId);
+    if (contact === undefined) { throw Errors.unexistentEmailError; }
+    const index = contact.emails.findIndex(email => email.id === emailId);
+    contact.emails.splice(index, 1);
+  
+  }
+
   private findContactOwner (contactId: string): UserData | undefined {
 
     return this.users.find(
@@ -114,6 +123,25 @@ export class MemoryRepository implements Repository {
     );
 
     return searchedContact;
+  
+  }
+
+  private findEmailOwner (emailId: string): Contact | undefined {
+
+    for (const userData of this.users) {
+
+      for (const contact of userData.contacts) {
+
+        const email = contact.emails.find(email => email.id === emailId);
+        if (email !== undefined) {
+
+          return contact;
+        
+        }
+      
+      }
+    
+    }
   
   }
 
