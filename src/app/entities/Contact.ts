@@ -25,7 +25,7 @@ export class Contact {
     return this._phoneNumbers;
   }
 
-  private constructor (name: string, emails: Email[], phoneNumbers: PhoneNumber[]) {
+  private constructor (name: string, emails: Email[] = [], phoneNumbers: PhoneNumber[] = []) {
 
     this._id = hash();
     this._name = name;
@@ -34,7 +34,7 @@ export class Contact {
   
   }
 
-  create (name: string, emails: Email[], phoneNumbers: PhoneNumber[]): Contact {
+  create (name: string, emails: Email[] = [], phoneNumbers: PhoneNumber[] = []): Contact {
 
     return new Contact(name, emails, phoneNumbers);
     
