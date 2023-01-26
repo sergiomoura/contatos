@@ -19,6 +19,7 @@ export class MemoryRepository implements Repository {
     const user = User.create(name, email, password);
     const userData = new UserData();
     userData.user = user;
+    userData.contacts = [];
     this.users.push(userData);
     return user;
   
@@ -38,14 +39,21 @@ export class MemoryRepository implements Repository {
     this.users.splice(index, 1);
   
   }
-
-  // TODO: Reimplementar essa função para nova estrutura
-  // async addContactToUser (userId: string, contact: Contact): Promise<void> {
-
-  //   const userData = this.users.find(userData => userData.user.id === userId);
-  //   if (userData === undefined) { throw new Error(Errors.unexistentUserError); }
-  //   userData.contacts.push(contact);
   
-  // }
+  async addContactToUser (userId: string, contact: Contact): Promise<void> {
+
+    const userData = this.users.find(userData => userData.user.id === userId);
+    if (userData === undefined) { throw new Error(Errors.unexistentUserError); }
+    userData.contacts.push(contact);
+  
+  }
+
+  async getContactsByUser (userId: string): Promise<Contact[]> {
+
+    const userData = this.users.find(userData => userData.user.id === userId);
+    if (userData === undefined) { throw new Error(Errors.unexistentUserError); }
+    return userData.contacts;
+  
+  }
 
 }

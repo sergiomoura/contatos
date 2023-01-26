@@ -1,4 +1,4 @@
-// import { type Contact } from '../entities/Contact';
+import { type Contact } from '../entities/Contact';
 // import { type Email } from '../entities/Email';
 // import { type PhoneNumber } from '../entities/PhoneNumber';
 // import { type Contact } from '../entities/Contact';
@@ -8,8 +8,8 @@ export interface Repository {
   createUser: (name: string, email: string, password: string) => Promise<User>
   getUserByEmail: (email: string) => Promise<User | undefined>
   deleteUser: (id: string) => Promise<void>
-  // TODO: addContactToUser: (userId: string, contact: Contact) => Promise<void>
-  // TODO: getContactsByUser: (userId: string) => Promise<Contact[]>
+  addContactToUser: (userId: string, contact: Contact) => Promise<void>
+  getContactsByUser: (userId: string) => Promise<Contact[]>
   // TODO: changeUserInfo: (userId: string, newName: string, newEmail: string, newPassword?: string) => Promise<User>
   // TODO: addPhoneToContact: (contactId: string, phoneNumber: string) => Promise<PhoneNumber>
   // TODO: addEmailToContact: (contactId: string, email: string) => Promise<Email>
