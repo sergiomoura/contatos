@@ -51,8 +51,7 @@ describe(
       }
     );
 
-    test(
-      'Should create a user',
+    test('Should create a user',
       async () => {
 
         expect(user).toBeInstanceOf(User);
@@ -63,8 +62,7 @@ describe(
       }
     );
 
-    test(
-      'Should recover user by its email',
+    test('Should recover user by its email',
       async () => {
 
         const loadedUser = await repository.getUserByEmail(validUserEmail);
@@ -74,8 +72,7 @@ describe(
       }
     );
 
-    test(
-      'Should return undefined when trying to get user by unexisting email',
+    test('Should return undefined when trying to get user by unexisting email',
       async () => {
 
         const loadedUser = await repository.getUserByEmail(unexistentUserEmail);
@@ -84,8 +81,7 @@ describe(
       }
     );
 
-    test(
-      'Should throw an exception trying to delete unexistent user',
+    test('Should throw an exception trying to delete unexistent user',
       async () => {
 
         const assertion = expect(async () => { await repository.deleteUser(unexistentUserId); });
@@ -94,8 +90,7 @@ describe(
       }
     );
 
-    test(
-      'Should delete user form repository',
+    test('Should delete user form repository',
       async () => {
 
         await repository.deleteUser(user.id);
@@ -105,8 +100,7 @@ describe(
       }
     );
 
-    test(
-      'Should throw an exception trying to add a contact to unexistent user',
+    test('Should throw an exception trying to add a contact to unexistent user',
       async () => {
 
         const assertion = expect(async () => { await repository.addContactToUser(unexistentUserId, contact1); });
@@ -115,8 +109,7 @@ describe(
       }
     );
 
-    test(
-      'Should throw an exception trying to recover contacts from unexistent user',
+    test('Should throw an exception trying to recover contacts from unexistent user',
       async () => {
 
         const assertion = expect(async () => { await repository.getContactsByUser(unexistentUserId); });
@@ -125,8 +118,7 @@ describe(
       }
     );
 
-    test(
-      'Should add contacts to user and then recover them',
+    test('Should add contacts to user and then recover them',
       async () => {
 
         let contacts = await repository.getContactsByUser(user.id);
