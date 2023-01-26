@@ -96,6 +96,15 @@ export class MemoryRepository implements Repository {
   
   }
 
+  async deletePhoneNumber (phoneId: string): Promise<void> {
+
+    const contact = this.findPhoneNumberOwner(phoneId);
+    if (contact === undefined) { throw Errors.unexistentPhoneError; }
+    const index = contact.phoneNumbers.findIndex(phone => phone.id === phoneId);
+    contact.phoneNumbers.splice(index, 1);
+  
+  }
+
   private findContactOwner (contactId: string): UserData | undefined {
 
     return this.users.find(
@@ -134,6 +143,25 @@ export class MemoryRepository implements Repository {
 
         const email = contact.emails.find(email => email.id === emailId);
         if (email !== undefined) {
+
+          return contact;
+        
+        }
+      
+      }
+    
+    }
+  
+  }
+
+  private findPhoneNumberOwner (phoneId: string): Contact | undefined {
+
+    for (const userData of this.users) {
+
+      for (const contact of userData.contacts) {
+
+        const phone = contact.phoneNumbers.find(phone => phone.id === phoneId);
+        if (phone !== undefined) {
 
           return contact;
         

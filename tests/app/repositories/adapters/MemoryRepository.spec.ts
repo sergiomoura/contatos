@@ -23,6 +23,7 @@ describe(
     const unexistentUserId = '000000';
     const unexistentContactId = '000000';
     const unexistentEmailId = '000000';
+    const unexistentPhoneNumber = '000000';
 
     let validEmail1;
     let validEmail2;
@@ -239,7 +240,36 @@ describe(
         const emails = contacts[contacts.length - 1].emails;
         expect(emails).toEqual([validEmail1, validEmail2, validEmail4]);
       
-      });
-  
+      }
+    );
+
+    test('Should throw an error trying to delete unexistent phoneNumber',
+      async () => {
+
+        const assertion = expect(async () => { await repository.deletePhoneNumber(unexistentPhoneNumber); });
+        await assertion.rejects.toThrowError(Errors.unexistentPhoneError);
+      
+      }
+    );
+
+    test('Should delete phone by its id',
+      async () => {
+
+        await repository.addContactToUser(user.id, contact1);
+        
+        await repository.addPhoneNumberToContact(contact1.id, validPhone1);
+        await repository.addPhoneNumberToContact(contact1.id, validPhone2);
+        await repository.addPhoneNumberToContact(contact1.id, validPhone3);
+        await repository.addPhoneNumberToContact(contact1.id, validPhone4);
+
+        await repository.deletePhoneNumber(validPhone3.id);
+        const contacts = await repository.getContactsByUser(user.id);
+        const phones = contacts[contacts.length - 1].phoneNumbers;
+        
+        expect(phones).toEqual([validPhone1, validPhone2, validPhone4]);
+      
+      }
+    );
+
   }
 );
