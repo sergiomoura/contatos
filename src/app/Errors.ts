@@ -3,5 +3,6 @@ export const Errors = {
   unexistentUserError: new Error('Usuário inexistente'),
   unexistentContactError: new Error('Contato inexistente'),
   unexistentEmailError: new Error('E-mail inexistente'),
-  unexistentPhoneError: new Error('Número de telefone inexistente')
+  unexistentPhoneError: new Error('Número de telefone inexistente'),
+  userAlreadyExistsError: new Error('Usuário já cadastrado')
 };
