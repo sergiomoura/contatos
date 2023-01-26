@@ -6,7 +6,7 @@ import { type User } from '../entities/User';
 export interface Repository {
   createUser: (name: string, email: string, password: string) => Promise<User>
   getUserByEmail: (email: string) => Promise<User | undefined>
-  // TODO: deleteUser: (id: string) => Promise<void>
+  deleteUser: (id: string) => Promise<void>
   // TODO: getContactsByUser: (userId: string) => Promise<Contact[]>
   // TODO: changeUserInfo: (userId: string, newName: string, newEmail: string, newPassword?: string) => Promise<User>
   // TODO: addContactToUser: (userId: string, contactName: string, emails?: Email[], phoneNumbers?: PhoneNumber[]) => Promise<Contact>

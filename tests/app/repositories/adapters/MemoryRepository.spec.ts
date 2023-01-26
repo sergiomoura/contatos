@@ -1,4 +1,5 @@
 import { User } from '@/app/entities/User';
+import { Errors } from '@/app/Errors';
 import { MemoryRepository } from '@/app/repositories/adapters/MemoryRepository';
 import { type Repository } from '@/app/repositories/Repository';
 import { beforeEach, describe, expect, test } from 'vitest';
@@ -12,6 +13,7 @@ describe(
     const validUserName = 'Jonh Doe';
     const validUserEmail = 'jonhdoe@test.com';
     const unexistentUserEmail = 'nobody@test.com';
+    const unexistentUserId = '000000';
     const hashedPassword = 'hashedPassword';
     let user: User;
 
@@ -52,6 +54,27 @@ describe(
       async () => {
 
         const loadedUser = await repository.getUserByEmail(unexistentUserEmail);
+        expect(loadedUser).toBeUndefined();
+      
+      }
+    );
+
+    test(
+      'Should throw an exception trying to delete unexistent user',
+      async () => {
+
+        const assertion = expect(async () => { await repository.deleteUser(unexistentUserId); });
+        await assertion.rejects.toThrow(Errors.unexistentUserError);
+      
+      }
+    );
+    
+    test(
+      'Should delete user form repository',
+      async () => {
+
+        await repository.deleteUser(user.id);
+        const loadedUser = await repository.getUserByEmail(validUserEmail);
         expect(loadedUser).toBeUndefined();
       
       }
