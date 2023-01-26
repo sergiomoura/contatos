@@ -21,12 +21,23 @@ describe(
     const unexistentUserId = '000000';
     const unexistentContactId = '000000';
 
-    const contact1Emails = [Email.create('contact1@test1.com'), Email.create('contact1@test2.com')];
-    const contact1PhoneNumbers = [PhoneNumber.create('1111'), PhoneNumber.create('2222')];
+    const validEmail1 = Email.create('contact1@test1.com');
+    const validEmail2 = Email.create('contact2@test1.com');
+    const validEmail3 = Email.create('contact3@test1.com');
+    const validEmail4 = Email.create('contact4@test1.com');
+    const validEmail5 = Email.create('contact4@test1.com');
+
+    const validPhone1 = PhoneNumber.create('111111');
+    const validPhone2 = PhoneNumber.create('222222');
+    const validPhone3 = PhoneNumber.create('333333');
+    const validPhone4 = PhoneNumber.create('444444');
+
+    const contact1Emails = [validEmail1, validEmail2];
+    const contact1PhoneNumbers = [validPhone1, validPhone2];
     const contact1 = Contact.create('Contact One', contact1Emails, contact1PhoneNumbers);
     
-    const contact2Emails = [Email.create('contact2@test1.com'), Email.create('contact2@test2.com')];
-    const contact2PhoneNumbers = [PhoneNumber.create('3333'), PhoneNumber.create('4444')];
+    const contact2Emails = [validEmail3, validEmail4];
+    const contact2PhoneNumbers = [validPhone3, validPhone4];
     const contact2 = Contact.create('Contact One', contact2Emails, contact2PhoneNumbers);
 
     let user: User;
@@ -154,6 +165,27 @@ describe(
         await repository.deleteContact(contact2.id);
         contacts = await repository.getContactsByUser(user.id);
         expect(contacts).toEqual([]);
+      
+      }
+    );
+
+    test('Should throw an error trying to add email to unexistent contact',
+      async () => {
+
+        const assetion = expect(async () => { await repository.addEmailToContact(unexistentContactId, validEmail5); });
+        await assetion.rejects.toThrowError(Errors.unexistentContactError);
+      
+      }
+    );
+
+    test('Should add an email to a contact',
+      async () => {
+
+        await repository.addContactToUser(user.id, contact1);
+        await repository.addEmailToContact(contact1.id, validEmail5);
+        const contacts = await repository.getContactsByUser(user.id);
+        const emails = contacts[contacts.length - 1].emails;
+        expect(emails[emails.length - 1]).toEqual(validEmail5);
       
       }
     );

@@ -1,4 +1,5 @@
 import { type Contact } from '@/app/entities/Contact';
+import { type Email } from '@/app/entities/Email';
 import { User } from '@/app/entities/User';
 import { Errors } from '@/app/Errors';
 import { type Repository } from '@/app/repositories/Repository';
@@ -65,6 +66,14 @@ export class MemoryRepository implements Repository {
   
   }
 
+  async addEmailToContact (contactId: string, email: Email): Promise<void> {
+
+    const contact = this.findContactById(contactId);
+    if (contact === undefined) { throw Errors.unexistentContactError; }
+    contact.emails.push(email);
+  
+  }
+
   private findContactOwner (contactId: string): UserData | undefined {
 
     return this.users.find(
@@ -75,6 +84,23 @@ export class MemoryRepository implements Repository {
       
       }
     );
+  
+  }
+
+  private findContactById (contactId: string): Contact | undefined {
+    
+    let searchedContact: Contact | undefined;
+
+    this.users.find(
+      userData => {
+
+        searchedContact = userData.contacts.find(contact => contact.id === contactId);
+        return searchedContact !== undefined;
+      
+      }
+    );
+
+    return searchedContact;
   
   }
 
