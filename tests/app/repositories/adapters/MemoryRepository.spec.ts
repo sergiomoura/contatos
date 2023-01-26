@@ -10,7 +10,8 @@ describe(
     
     let repository: Repository;
     const validUserName = 'Jonh Doe';
-    const validEmail = 'jonhdoe@test.com';
+    const validUserEmail = 'jonhdoe@test.com';
+    const unexistentUserEmail = 'nobody@test.com';
     const hashedPassword = 'hashedPassword';
     let user: User;
 
@@ -18,7 +19,7 @@ describe(
       async () => {
 
         repository = new MemoryRepository();
-        user = await repository.createUser(validUserName, validEmail, hashedPassword);
+        user = await repository.createUser(validUserName, validUserEmail, hashedPassword);
       
       }
     );
@@ -29,8 +30,29 @@ describe(
 
         expect(user).toBeInstanceOf(User);
         expect(user.name).toEqual(validUserName);
-        expect(user.email).toEqual(validEmail);
+        expect(user.email).toEqual(validUserEmail);
         expect(user.password).toEqual(hashedPassword);
+      
+      }
+    );
+
+    test(
+      'Should recover user by its email',
+      async () => {
+
+        const loadedUser = await repository.getUserByEmail(validUserEmail);
+        expect(loadedUser).toBeInstanceOf(User);
+        expect(loadedUser).toEqual(user);
+      
+      }
+    );
+
+    test(
+      'Should return undefined when trying to get user by unexisting email',
+      async () => {
+
+        const loadedUser = await repository.getUserByEmail(unexistentUserEmail);
+        expect(loadedUser).toBeUndefined();
       
       }
     );
