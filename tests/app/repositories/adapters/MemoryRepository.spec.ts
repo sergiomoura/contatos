@@ -15,9 +15,11 @@ describe(
     let repository: Repository;
     const validUserName = 'Jonh Doe';
     const validUserEmail = 'jonhdoe@test.com';
+    const hashedPassword = 'hashedPassword';
+
     const unexistentUserEmail = 'nobody@test.com';
     const unexistentUserId = '000000';
-    const hashedPassword = 'hashedPassword';
+    const unexistentContactId = '000000';
 
     const contact1Emails = [Email.create('contact1@test1.com'), Email.create('contact1@test2.com')];
     const contact1PhoneNumbers = [PhoneNumber.create('1111'), PhoneNumber.create('2222')];
@@ -126,6 +128,32 @@ describe(
         await repository.addContactToUser(user.id, contact2);
         contacts = await repository.getContactsByUser(user.id);
         expect(contacts).toEqual([contact1, contact2]);
+      
+      }
+    );
+
+    test('Should throw an error trying to delete unexistent contact',
+      async () => {
+
+        const assertion = expect(async () => { await repository.deleteContact(unexistentContactId); });
+        await assertion.rejects.toThrowError(Errors.unexistentContactError);
+      
+      }
+    );
+
+    test('Should delete a contact',
+      async () => {
+
+        await repository.addContactToUser(user.id, contact1);
+        await repository.addContactToUser(user.id, contact2);
+        
+        await repository.deleteContact(contact1.id);
+        let contacts = await repository.getContactsByUser(user.id);
+        expect(contacts).toEqual([contact2]);
+
+        await repository.deleteContact(contact2.id);
+        contacts = await repository.getContactsByUser(user.id);
+        expect(contacts).toEqual([]);
       
       }
     );

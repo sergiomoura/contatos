@@ -56,4 +56,26 @@ export class MemoryRepository implements Repository {
   
   }
 
+  async deleteContact (contactId: string): Promise<void> {
+
+    const userData = this.findContactOwner(contactId);
+    if (userData === undefined) { throw new Error(Errors.unexistentContactError); }
+    const index = userData.contacts.findIndex(contact => contact.id === contactId);
+    userData.contacts.splice(index, 1);
+  
+  }
+
+  private findContactOwner (contactId: string): UserData | undefined {
+
+    return this.users.find(
+      userData => {
+
+        const contact = userData.contacts.find(contact => contact.id === contactId);
+        return contact !== undefined;
+      
+      }
+    );
+  
+  }
+
 }

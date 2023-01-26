@@ -10,13 +10,13 @@ export interface Repository {
   deleteUser: (id: string) => Promise<void>
   addContactToUser: (userId: string, contact: Contact) => Promise<void>
   getContactsByUser: (userId: string) => Promise<Contact[]>
+  deleteContact: (contactId: string) => Promise<void>
   // TODO: changeUserInfo: (userId: string, newName: string, newEmail: string, newPassword?: string) => Promise<User>
   // TODO: addPhoneToContact: (contactId: string, phoneNumber: string) => Promise<PhoneNumber>
   // TODO: addEmailToContact: (contactId: string, email: string) => Promise<Email>
   // TODO: changeContactInfo: (contactId: string, name: string) => Promise<void>
   // TODO: changePhoneNumber: (phoneId: string, newPhone: string) => Promise<PhoneNumber>
   // TODO: changeEmail: (emailId: string, newEmail: string) => Promise<Email>
-  // TODO: deleteContact: (contactId: string) => Promise<void>
   // TODO: deletePhoneNumber: (phoneId: string) => Promise<void>
   // TODO: deleteEmail: (emailId: string) => Promise<void>
 }
