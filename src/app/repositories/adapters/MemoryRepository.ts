@@ -1,3 +1,4 @@
+import { type Contact } from '@/app/entities/Contact';
 import { User } from '@/app/entities/User';
 import { Errors } from '@/app/Errors';
 import { type Repository } from '@/app/repositories/Repository';
@@ -26,6 +27,14 @@ export class MemoryRepository implements Repository {
     const index = this.users.findIndex(user => user.id === id);
     if (index === -1) { throw new Error(Errors.unexistentUserError); }
     this.users.splice(index, 1);
+  
+  }
+
+  async addContactToUser (userId: string, contact: Contact): Promise<void> {
+
+    const user = this.users.find(user => user.id === userId);
+    if (user === undefined) { throw new Error(Errors.unexistentUserError); }
+    user.contacts.push(contact);
   
   }
 
