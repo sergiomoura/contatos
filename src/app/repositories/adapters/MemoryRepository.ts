@@ -1,5 +1,6 @@
 import { type Contact } from '@/app/entities/Contact';
 import { type Email } from '@/app/entities/Email';
+import { type PhoneNumber } from '@/app/entities/PhoneNumber';
 import { User } from '@/app/entities/User';
 import { Errors } from '@/app/Errors';
 import { type Repository } from '@/app/repositories/Repository';
@@ -71,6 +72,18 @@ export class MemoryRepository implements Repository {
     const contact = this.findContactById(contactId);
     if (contact === undefined) { throw Errors.unexistentContactError; }
     contact.emails.push(email);
+  
+  }
+
+  async addPhoneNumberToContact (contactId: string, phoneNumber: PhoneNumber): Promise<void> {
+
+    const contact = this.findContactById(contactId);
+    if (contact === undefined) {
+
+      throw Errors.unexistentContactError;
+    
+    }
+    contact.phoneNumbers.push(phoneNumber);
   
   }
 

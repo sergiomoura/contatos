@@ -25,7 +25,7 @@ describe(
     const validEmail2 = Email.create('contact2@test1.com');
     const validEmail3 = Email.create('contact3@test1.com');
     const validEmail4 = Email.create('contact4@test1.com');
-    const validEmail5 = Email.create('contact4@test1.com');
+    const validEmail5 = Email.create('contact5@test1.com');
 
     const validPhone1 = PhoneNumber.create('111111');
     const validPhone2 = PhoneNumber.create('222222');
@@ -180,6 +180,32 @@ describe(
         expect(emails[emails.length - 1]).toEqual(validEmail5);
       
       }
+    );
+
+    test('Should throw an error trying to add phoneNumber to unexistent contact',
+    
+      async () => {
+
+        const assertion = expect(async () => { await repository.addPhoneNumberToContact(unexistentContactId, validPhone1); }); ;
+        await assertion.rejects.toThrowError(Errors.unexistentContactError);
+      
+      }
+    
+    );
+
+    test('Should add phone number to contact',
+    
+      async () => {
+
+        await repository.addContactToUser(user.id, contact1);
+        
+        await repository.addPhoneNumberToContact(contact1.id, validPhone1);
+        const contacts = await repository.getContactsByUser(user.id);
+        const phoneNumbers = contacts[contacts.length - 1].phoneNumbers;
+        expect(phoneNumbers[phoneNumbers.length - 1]).toEqual(validPhone1);
+      
+      }
+
     );
   
   }
