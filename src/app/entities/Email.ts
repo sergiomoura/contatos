@@ -26,7 +26,7 @@ export class Email {
     
     } else {
 
-      throw new Error(Errors.invalidEmailError);
+      throw Errors.invalidEmailError;
     
     }
   

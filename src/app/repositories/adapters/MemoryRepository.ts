@@ -35,7 +35,7 @@ export class MemoryRepository implements Repository {
   async deleteUser (id: string): Promise<void> {
 
     const index = this.users.findIndex(userData => userData.user.id === id);
-    if (index === -1) { throw new Error(Errors.unexistentUserError); }
+    if (index === -1) { throw Errors.unexistentUserError; }
     this.users.splice(index, 1);
   
   }
@@ -43,7 +43,7 @@ export class MemoryRepository implements Repository {
   async addContactToUser (userId: string, contact: Contact): Promise<void> {
 
     const userData = this.users.find(userData => userData.user.id === userId);
-    if (userData === undefined) { throw new Error(Errors.unexistentUserError); }
+    if (userData === undefined) { throw Errors.unexistentUserError; }
     userData.contacts.push(contact);
   
   }
@@ -51,7 +51,7 @@ export class MemoryRepository implements Repository {
   async getContactsByUser (userId: string): Promise<Contact[]> {
 
     const userData = this.users.find(userData => userData.user.id === userId);
-    if (userData === undefined) { throw new Error(Errors.unexistentUserError); }
+    if (userData === undefined) { throw Errors.unexistentUserError; }
     return userData.contacts;
   
   }
@@ -59,7 +59,7 @@ export class MemoryRepository implements Repository {
   async deleteContact (contactId: string): Promise<void> {
 
     const userData = this.findContactOwner(contactId);
-    if (userData === undefined) { throw new Error(Errors.unexistentContactError); }
+    if (userData === undefined) { throw Errors.unexistentContactError; }
     const index = userData.contacts.findIndex(contact => contact.id === contactId);
     userData.contacts.splice(index, 1);
   

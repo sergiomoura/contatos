@@ -1,5 +1,5 @@
 export const Errors = {
-  invalidEmailError: 'E-mail inválido',
-  unexistentUserError: 'Usuário inexistente',
-  unexistentContactError: 'Contato inexistente'
+  invalidEmailError: new Error('E-mail inválido'),
+  unexistentUserError: new Error('Usuário inexistente'),
+  unexistentContactError: new Error('Contato inexistente')
 };
