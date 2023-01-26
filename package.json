@@ -24,6 +24,8 @@
     "vitest-tsconfig-paths": "^3.4.1"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "bcrypt": "^5.1.0",
     "email-validator": "^2.0.4"
   }
 }
