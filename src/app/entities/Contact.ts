@@ -34,7 +34,7 @@ export class Contact {
   
   }
 
-  create (name: string, emails: Email[] = [], phoneNumbers: PhoneNumber[] = []): Contact {
+  static create (name: string, emails: Email[] = [], phoneNumbers: PhoneNumber[] = []): Contact {
 
     return new Contact(name, emails, phoneNumbers);
     
