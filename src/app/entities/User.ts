@@ -1,5 +1,4 @@
 import { hash } from '@/utils/HashGenerator';
-import { type Contact } from './Contact';
 
 export class User {
 
@@ -18,15 +17,12 @@ export class User {
   public get password (): string { return this._password; }
   public set password (value: string) { this._password = value; }
 
-  public contacts: Contact[];
-  
   private constructor (name: string, email: string, password: string) {
 
     this._id = hash();
     this._name = name;
     this._email = email;
     this._password = password;
-    this.contacts = [];
   
   }
 

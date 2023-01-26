@@ -3,39 +3,49 @@ import { User } from '@/app/entities/User';
 import { Errors } from '@/app/Errors';
 import { type Repository } from '@/app/repositories/Repository';
 
+class UserData {
+
+  user: User;
+  contacts: Contact[];
+
+};
+
 export class MemoryRepository implements Repository {
 
-  private readonly users: User[] = [];
+  private readonly users: UserData[] = [];
 
   async createUser (name: string, email: string, password: string): Promise<User> {
 
     const user = User.create(name, email, password);
-    this.users.push(user);
+    const userData = new UserData();
+    userData.user = user;
+    this.users.push(userData);
     return user;
   
   }
 
   async getUserByEmail (email: string): Promise<User | undefined> {
 
-    const user = this.users.find(user => user.email === email);
-    return user;
+    const userData = this.users.find(userData => userData.user.email === email);
+    return userData?.user;
   
   }
 
   async deleteUser (id: string): Promise<void> {
 
-    const index = this.users.findIndex(user => user.id === id);
+    const index = this.users.findIndex(userData => userData.user.id === id);
     if (index === -1) { throw new Error(Errors.unexistentUserError); }
     this.users.splice(index, 1);
   
   }
 
-  async addContactToUser (userId: string, contact: Contact): Promise<void> {
+  // TODO: Reimplementar essa função para nova estrutura
+  // async addContactToUser (userId: string, contact: Contact): Promise<void> {
 
-    const user = this.users.find(user => user.id === userId);
-    if (user === undefined) { throw new Error(Errors.unexistentUserError); }
-    user.contacts.push(contact);
+  //   const userData = this.users.find(userData => userData.user.id === userId);
+  //   if (userData === undefined) { throw new Error(Errors.unexistentUserError); }
+  //   userData.contacts.push(contact);
   
-  }
+  // }
 
 }
