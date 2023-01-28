@@ -1,7 +1,7 @@
-import { type Request } from '@/utils/Request/Request';
-import { type Controller } from './Controller';
+import { type Request } from '@/types/Request';
+import { type Controller } from '@/types/Controller';
 import { type CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
-import { type Response } from '@/utils/Response/Response';
+import { type Response } from '@/types/Response';
 import { HttpErrorMessages } from '../HttpErrorMessages';
 
 interface CreateUserBody {
