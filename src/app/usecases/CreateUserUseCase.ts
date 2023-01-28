@@ -1,7 +1,7 @@
 import { type Repository } from '@/app/repositories/Repository';
-import { type User } from '../entities/User';
+import { type User } from '@/app/entities/User';
 import { crypter } from '@/utils/Crypter';
-import { Errors } from '../Errors';
+import { Errors } from '@/errors/Errors';
 
 export class CreateUserUseCase {
 

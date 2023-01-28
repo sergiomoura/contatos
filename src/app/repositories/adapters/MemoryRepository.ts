@@ -2,7 +2,7 @@ import { type Contact } from '@/app/entities/Contact';
 import { type Email } from '@/app/entities/Email';
 import { type PhoneNumber } from '@/app/entities/PhoneNumber';
 import { User } from '@/app/entities/User';
-import { Errors } from '@/app/Errors';
+import { Errors } from '@/errors/Errors';
 import { type Repository } from '@/app/repositories/Repository';
 
 class UserData {

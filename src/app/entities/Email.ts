@@ -1,7 +1,7 @@
 
 import { hash } from '@/utils/HashGenerator';
 import { isValid } from '@/utils/Validators';
-import { Errors } from '../Errors';
+import { Errors } from '@/errors/Errors';
 
 export class Email {
   

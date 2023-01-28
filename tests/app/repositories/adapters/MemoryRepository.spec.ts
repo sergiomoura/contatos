@@ -2,7 +2,7 @@ import { Contact } from '@/app/entities/Contact';
 import { Email } from '@/app/entities/Email';
 import { PhoneNumber } from '@/app/entities/PhoneNumber';
 import { User } from '@/app/entities/User';
-import { Errors } from '@/app/Errors';
+import { Errors } from '@/errors/Errors';
 import { MemoryRepository } from '@/app/repositories/adapters/MemoryRepository';
 import { type Repository } from '@/app/repositories/Repository';
 import { beforeEach, describe, expect, test } from 'vitest';

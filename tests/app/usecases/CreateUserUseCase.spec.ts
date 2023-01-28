@@ -1,5 +1,5 @@
 import { User } from '@/app/entities/User';
-import { Errors } from '@/app/Errors';
+import { Errors } from '@/errors/Errors';
 import { MemoryRepository } from '@/app/repositories/adapters/MemoryRepository';
 import { CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
 import { crypter } from '@/utils/Crypter';
