@@ -1,8 +1,9 @@
-import { type Request } from '@/utils/Request/Request';
 import express, { Router, type Request as ExpressRequest, type Response as ExpressResponse } from 'express';
-import { CreateUserController } from '../controllers/CreateUserController';
-import { MemoryRepository } from '../repositories/adapters/MemoryRepository';
-import { CreateUserUseCase } from '../usecases/CreateUserUseCase';
+
+import { type Request } from '@/types/Request';
+import { CreateUserController } from '@/app/controllers/CreateUserController';
+import { MemoryRepository } from '@/app/repositories/adapters/MemoryRepository';
+import { CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
 
 const router = Router();
 

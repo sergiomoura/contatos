@@ -2,7 +2,7 @@ import { type Request } from '@/types/Request';
 import { type Controller } from '@/types/Controller';
 import { type CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
 import { type Response } from '@/types/Response';
-import { HttpErrorMessages } from '../HttpErrorMessages';
+import { HttpErrorMessages } from '@/app/HttpErrorMessages';
 
 interface CreateUserBody {
   name: string
