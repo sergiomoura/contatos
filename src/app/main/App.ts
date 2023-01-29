@@ -2,14 +2,14 @@ import express, { Router, type Request as ExpressRequest, type Response as Expre
 
 import { type Request } from '@/types/Request';
 import { CreateUserController } from '@/app/controllers/CreateUserController';
-import { MemoryRepository } from '@/app/repositories/adapters/MemoryRepository';
 import { CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
+import { settings } from '@/settings';
 
 const router = Router();
 
 const createUserRouterCallback = async (req: ExpressRequest, res: ExpressResponse): Promise<void> => {
 
-  const repository = new MemoryRepository();
+  const repository = settings.repository;
   const createUserUsecase = new CreateUserUseCase(repository);
   const createUserController = new CreateUserController(createUserUsecase);
   const headers: Record<string, string | string[] | undefined> = {};
@@ -35,6 +35,6 @@ router.post('/auth/register', async (req, res) => { await createUserRouterCallba
 
 const App = express();
 App.use(express.json());
-App.use('/api', router);
+App.use('/api/v1', router);
 
 export { App };

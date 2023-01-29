@@ -3,6 +3,7 @@ import { type Controller } from '@/types/Controller';
 import { type CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
 import { type Response } from '@/types/Response';
 import { HttpErrorMessages } from '@/errors/HttpErrorMessages';
+import { type User } from '../entities/User';
 
 interface CreateUserBody {
   name: string
@@ -20,9 +21,15 @@ export class CreateUserController implements Controller {
     try {
 
       const user = await this.creatUserUseCase.execute(name, email, password);
+      const userWithoutPassword: Omit<User, 'password'> = {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      };
+      
       const res: Response = {
-        status: 200,
-        body: user
+        status: 201,
+        body: userWithoutPassword
       };
 
       return res;
