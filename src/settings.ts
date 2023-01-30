@@ -1,10 +1,14 @@
 import { type Repository } from '@/app/repositories/Repository';
+import { ExpressWebApp } from './app/infra/ExpressWebApp/ExpressWebApp';
 import { MemoryRepository } from './app/repositories/adapters/MemoryRepository';
+import { type WebApp } from './types/WebApp';
 
 interface settingsInterface {
   repository: Repository
+  webApp: WebApp
 }
 
 export const settings: settingsInterface = {
-  repository: new MemoryRepository()
+  repository: new MemoryRepository(),
+  webApp: new ExpressWebApp()
 };
