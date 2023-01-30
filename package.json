@@ -6,6 +6,7 @@
   "scripts": {
     "start": "tsnd -r tsconfig-paths/register --transpile-only --respawn ./src/server.ts",
     "test": "vitest --ui",
+    "test:endpoints":"vitest --ui ./tests/endpoints/",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {

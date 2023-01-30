@@ -1,17 +1,24 @@
-import request from 'supertest';
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, afterAll } from 'vitest';
 import { App } from '@/app/main/App';
 import { HttpErrorMessages } from '@/errors/HttpErrorMessages';
 
+const host = 'http:///localhost';
+const port = 3000;
 const baseurl = '/api/v1';
 const uri = '/auth/register';
+const url = `${host}:${port}${baseurl}${uri}`;
 const validName = 'Jonh Doe';
 const validEmail = 'jonhdoe@test1.com';
 const validPassword = '123456';
-
 describe(
   'Testing successfull POST /auth/register endpoint',
   async () => {
+
+    afterAll(
+      () => { App.close(); }
+    );
+
+    App.listen(port);
 
     const validRequestBody = {
       name: validName,
@@ -19,18 +26,24 @@ describe(
       password: validPassword
     };
     
-    const response = await request(App)
-      .post(baseurl + uri)
-      .set('Content-type', 'application/json')
-      .send(validRequestBody);
+    const response = await fetch(
+      url,
+      {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(validRequestBody)
+      }
+    );
+
+    const result = await response.json();
     
     const regex = /^[0-9|a-z|-]{36}$/;
 
     test('Should get a status 201', () => { expect(response.status).toEqual(201); });
-    test('Should get an id for the user', () => { expect(response.body.id).toMatch(regex); });
-    test('Should get the valid name', () => { expect(response.body.name).toEqual(validName); });
-    test('Should get the valid email', () => { expect(response.body.email).toEqual(validEmail); });
-    test('Should get no password back', () => { expect(response.body.password).toBeUndefined(); });
+    test('Should get an id for the user', () => { expect(result.id).toMatch(regex); });
+    test('Should get the valid name', () => { expect(result.name).toEqual(validName); });
+    test('Should get the valid email', () => { expect(result.email).toEqual(validEmail); });
+    test('Should get no password back', () => { expect(result.password).toBeUndefined(); });
   
   }
 
@@ -46,13 +59,19 @@ describe(
       password: validPassword
     };
     
-    const response = await request(App)
-      .post(baseurl + uri)
-      .set('Content-type', 'application/json')
-      .send(validRequestBody);
+    const response = await fetch(
+      'http://localhost:3000/api/v1/auth/register',
+      {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(validRequestBody)
+      }
+    );
+
+    const result = await response.text();
     
     test('Should get a status 409', () => { expect(response.status).toEqual(409); });
-    test('Should get error message on the body', () => { expect(response.body).toMatch(HttpErrorMessages.userAlreadyExist); });
+    test('Should get error message', () => { expect(result).toMatch(HttpErrorMessages.userAlreadyExist); });
   
   }
 
