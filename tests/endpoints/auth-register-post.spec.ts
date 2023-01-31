@@ -1,9 +1,10 @@
 import { describe, test, expect, afterAll } from 'vitest';
 import { App } from '@/app/main/App';
 import { HttpErrorMessages } from '@/errors/HttpErrorMessages';
+import { settings } from '@/settings';
 
 const host = 'http:///localhost';
-const port = 3000;
+const port = settings.testPort;
 const baseurl = '/api/v1';
 const uri = '/auth/register';
 const url = `${host}:${port}${baseurl}${uri}`;
@@ -60,7 +61,7 @@ describe(
     };
     
     const response = await fetch(
-      'http://localhost:3000/api/v1/auth/register',
+      url,
       {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
