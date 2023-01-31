@@ -1,9 +1,9 @@
 import { User } from '@/app/entities/User';
 import { Errors } from '@/errors/Errors';
-import { MemoryRepository } from '@/app/repositories/adapters/MemoryRepository';
 import { CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
 import { crypter } from '@/utils/Crypter';
 import { describe, expect, test } from 'vitest';
+import { settings } from '@/settings';
 
 describe(
   
@@ -15,7 +15,7 @@ describe(
     const validEmail = 'jonhdoe@test.com';
     const validPassword = '123456';
     
-    const repository = new MemoryRepository();
+    const repository = settings.repository;
     const createUserUseCase = new CreateUserUseCase(repository);
 
     test('Should create a user',
