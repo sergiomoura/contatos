@@ -1,2 +1,4 @@
 import { App } from '@/app/main/App';
-App.listen(3000);
+import { settings } from './settings';
+
+App.listen(settings.devPort);
