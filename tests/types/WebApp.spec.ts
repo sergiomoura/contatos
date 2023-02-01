@@ -13,7 +13,11 @@ const response = { status: responseStatus, body: responseBody };
 const controller = <Controller>(<unknown>{ handle: (req: Request) => { return response; } });
 const path1 = '/';
 const path2 = '/test';
-
+const sub = '/sub';
+const subA = '/sub-a';
+const subB = '/sub-b';
+const subB1 = '/sub-b-1';
+const subB2 = '/sub-b-2';
 const app = settings.webApp;
 const router: Router = {
   basePath: '',
@@ -30,6 +34,36 @@ const router: Router = {
       path: path2,
       controller,
       middlewares: []
+    },
+    {
+      basePath: sub,
+      routes: [
+        {
+          controller,
+          path: subA,
+          method: HttpMethod.GET
+        },
+        {
+          controller,
+          path: subB,
+          method: HttpMethod.GET
+        },
+        {
+          basePath: subB,
+          routes: [
+            {
+              controller,
+              path: subB1,
+              method: HttpMethod.GET
+            },
+            {
+              controller,
+              path: subB2,
+              method: HttpMethod.GET
+            }
+          ]
+        }
+      ]
     }
   ]
 };
@@ -41,22 +75,48 @@ describe(
   
   () => {
 
-    test('Should call first level controllers',
+    test('Should call level 1 controllers',
       async () => {
 
-        let res = await fetch(`${host}:${port}${path1}`);
-        let content = await res.json();
-        expect(res.status).toBe(200);
-        expect(content).toEqual(responseBody);
+        const response1 = await fetch(`${host}:${port}${path1}`);
+        expect(response1.status).toBe(200);
+        expect(await response1.json()).toEqual(responseBody);
 
-        res = await fetch(`${host}:${port}${path2}`);
-        content = await res.json();
-        expect(res.status).toBe(200);
-        expect(content).toEqual(responseBody);
+        const response2 = await fetch(`${host}:${port}${path2}`);
+        expect(response2.status).toBe(200);
+        expect(await response2.json()).toEqual(responseBody);
       
       }
     );
   
+    test('Should call level 2 controllers',
+      async () => {
+
+        const response1 = await fetch(`${host}:${port}${sub}${subA}`);
+        expect(response1.status).toBe(200);
+        expect(await response1.json()).toEqual(responseBody);
+
+        const response2 = await fetch(`${host}:${port}${sub}${subB}`);
+        expect(response2.status).toBe(200);
+        expect(await response2.json()).toEqual(responseBody);
+      
+      }
+    );
+
+    test('Should call level 3 controllers',
+      async () => {
+
+        const response1 = await fetch(`${host}:${port}${sub}${subB}${subB1}`);
+        expect(response1.status).toBe(200);
+        expect(await response1.json()).toEqual(responseBody);
+
+        const response2 = await fetch(`${host}:${port}${sub}${subB}${subB2}`);
+        expect(response2.status).toBe(200);
+        expect(await response2.json()).toEqual(responseBody);
+      
+      }
+    );
+    
   }
 
 );

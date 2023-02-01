@@ -31,18 +31,18 @@ export class ExpressWebApp implements WebApp {
   
   };
 
-  setRouter (router: Router): void {
+  setRouter (router: Router, basePath: string = ''): void {
 
     router.routes.forEach(route => {
 
       if (this.isRoute(route)) {
         
-        this.registerExpressRoute(<Route>route, router.basePath);
+        this.registerExpressRoute(<Route>route, basePath + router.basePath);
       
       } else {
 
         const subRouter = <Router>route;
-        this.setRouter(subRouter);
+        this.setRouter(subRouter, basePath + router.basePath);
 
       }
     
@@ -59,6 +59,7 @@ export class ExpressWebApp implements WebApp {
   private registerExpressRoute (route: Route, basePath: string = ''): void {
 
     const expressController = this.createExpressController(route.controller);
+    console.log(basePath + route.path);
     this.router[route.method](basePath + route.path, expressController);
   
   }
