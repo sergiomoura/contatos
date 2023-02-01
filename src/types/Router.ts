@@ -3,5 +3,6 @@ import { type Route } from '@/types/Route';
 
 export interface Router {
   middlewares?: Middleware[]
-  routes: Route[]
+  routes: Array<Route | Router>
+  basePath: string
 }

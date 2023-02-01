@@ -10,12 +10,13 @@ const createUserController = new CreateUserController(createUserUsecase);
 
 const router: Router = {
   middlewares: [],
+  basePath: '',
   routes: [
     {
-      uri: '/api/v1/auth/register',
-      destiny: createUserController,
+      path: '/api/v1/auth/register',
+      controller: createUserController,
       method: HttpMethod.POST,
-      middlewares: undefined
+      middlewares: []
     }
   ]
 };

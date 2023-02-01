@@ -33,7 +33,20 @@ export class ExpressWebApp implements WebApp {
 
   setRouter (router: Router): void {
 
-    router.routes.forEach(route => { this.registerExpressRoute(route); });
+    router.routes.forEach(route => {
+
+      if (this.isRoute(route)) {
+        
+        this.registerExpressRoute(<Route>route, router.basePath);
+      
+      } else {
+
+        const subRouter = <Router>route;
+        this.setRouter(subRouter);
+
+      }
+    
+    });
   
   }
 
@@ -43,28 +56,20 @@ export class ExpressWebApp implements WebApp {
   
   };
 
-  private registerExpressRoute (route: Route): void {
+  private registerExpressRoute (route: Route, basePath: string = ''): void {
 
-    if (ExpressWebApp.isDestinyController(route.destiny)) {
-
-      const expressController = ExpressWebApp.createExpressController(<Controller>route.destiny);
-      this.router[route.method](route.uri, expressController);
-
-    } else {
-
-      this.setRouter(<Router>route.destiny);
-    
-    }
+    const expressController = this.createExpressController(route.controller);
+    this.router[route.method](basePath + route.path, expressController);
   
   }
 
-  private static isDestinyController (destiny: Controller | Router): boolean {
+  private isRoute (destiny: Route | Router): boolean {
 
-    return (<Controller>destiny).handle !== undefined;
+    return (<Route>destiny).controller !== undefined;
   
   }
   
-  private static createExpressController (controller: Controller): ExpressController {
+  private createExpressController (controller: Controller): ExpressController {
     
     const expressController = async (req, res): Promise<void> => {
 

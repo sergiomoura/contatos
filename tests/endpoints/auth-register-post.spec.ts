@@ -3,7 +3,7 @@ import { App } from '@/app/main/App';
 import { HttpErrorMessages } from '@/errors/HttpErrorMessages';
 import { settings } from '@/settings';
 
-const host = 'http:///localhost';
+const host = 'http://localhost';
 const port = settings.testPort;
 const baseurl = '/api/v1';
 const uri = '/auth/register';

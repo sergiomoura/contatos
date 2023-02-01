@@ -22,24 +22,25 @@ describe(
         const controller1: Controller = <Controller>(<unknown>{ handle: (req: Request) => { return response; } });
         const controller2: Controller = <Controller>(<unknown>{ handle: (req: Request) => { return response; } });
 
-        const uri1 = '/';
-        const uri2 = '/test';
+        const path1 = '/';
+        const path2 = '/test';
 
         const app = settings.webApp;
 
         const router: Router = {
+          basePath: '',
           middlewares: [],
           routes: [
             {
               method: HttpMethod.GET,
-              uri: uri1,
-              destiny: controller1,
+              path: path1,
+              controller: controller1,
               middlewares: []
             },
             {
               method: HttpMethod.GET,
-              uri: uri2,
-              destiny: controller2,
+              path: path2,
+              controller: controller2,
               middlewares: []
             }
           ]
@@ -48,12 +49,12 @@ describe(
         app.setRouter(router);
         app.listen(port);
 
-        let res = await fetch(`${host}:${port}${uri1}`);
+        let res = await fetch(`${host}:${port}${path1}`);
         let content = await res.json();
         expect(res.status).toBe(200);
         expect(content).toEqual(responseBody);
 
-        res = await fetch(`${host}:${port}${uri2}`);
+        res = await fetch(`${host}:${port}${path2}`);
         content = await res.json();
         expect(res.status).toBe(200);
         expect(content).toEqual(responseBody);
