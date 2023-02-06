@@ -1,7 +1,7 @@
-import { type Router } from './Router';
+import { type Route } from './Route';
 
 export interface WebApp {
   listen: (port: number) => void
-  setRouter: (router: Router) => void
+  setRoutes: (routes: Route[], basePath: string) => void
   close: () => void
 }
