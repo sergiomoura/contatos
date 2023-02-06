@@ -11,6 +11,7 @@ const url = `${host}:${port}${baseurl}${uri}`;
 const validName = 'Jonh Doe';
 const validEmail = 'jonhdoe@test1.com';
 const validPassword = '123456';
+
 describe(
   'Testing successfull POST /auth/register endpoint',
   async () => {
