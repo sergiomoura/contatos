@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { type Request } from '@/types/Request';
-import { type Router } from '@/types/Router';
 import { type WebApp } from '@/types/WebApp';
 import { type Controller } from '@/types/Controller';
 import { type Server } from 'http';
 import { type Router as ExpressRouterType } from 'express-serve-static-core';
 import express, { type Express, Router as createExpressRouter, type Request as ExpressRequest, type Response as ExpressResponse } from 'express';
 import { type Route } from '@/types/Route';
+import { HttpMethod } from '../../../types/HttpMethod';
 
 type ExpressController = (req: ExpressRequest, res: ExpressResponse) => void;
 
@@ -31,18 +31,15 @@ export class ExpressWebApp implements WebApp {
   
   };
 
-  setRouter (router: Router, basePath: string = ''): void {
+  setRoutes (routes: Route[], basePath: string = ''): void {
 
-    router.routes.forEach(route => {
+    routes.forEach(route => {
 
-      if (this.isRoute(route)) {
-        
-        this.registerExpressRoute(<Route>route, basePath + router.basePath);
+      this.registerExpressRoute(route, basePath);
       
-      } else {
+      if (route.children !== undefined) {
 
-        const subRouter = <Router>route;
-        this.setRouter(subRouter, basePath + router.basePath);
+        this.setRoutes(route.children, basePath + route.path);
 
       }
     
@@ -58,15 +55,13 @@ export class ExpressWebApp implements WebApp {
 
   private registerExpressRoute (route: Route, basePath: string = ''): void {
 
-    const expressController = this.createExpressController(route.controller);
-    console.log(basePath + route.path);
-    this.router[route.method](basePath + route.path, expressController);
-  
-  }
+    if (route.handler !== undefined) {
 
-  private isRoute (destiny: Route | Router): boolean {
-
-    return (<Route>destiny).controller !== undefined;
+      const expressController = this.createExpressController(route.handler.controller);
+      console.log(`Defining: ${basePath + route.path}`);
+      this.router[route.handler.method](basePath + route.path, expressController);
+    
+    }
   
   }
   
@@ -89,3 +84,64 @@ export class ExpressWebApp implements WebApp {
   }
 
 }
+
+const responseBody = { msg: 'test' };
+const responseStatus = 200;
+const response = { status: responseStatus, body: responseBody };
+const controller = <Controller>(<unknown>{ handle: (req: Request) => { return response; } });
+const routes: Route[] = [
+  {
+    path: '',
+    middlewares: [],
+    handler: { method: HttpMethod.GET, controller },
+    children: [
+      {
+        path: '/test',
+        handler: {
+          method: HttpMethod.GET,
+          controller
+        },
+        middlewares: []
+      },
+      {
+        path: '/sub',
+        handler: { method: HttpMethod.GET, controller },
+        children: [
+          {
+            path: '/subA',
+            handler: {
+              controller,
+              method: HttpMethod.GET
+            }
+          },
+          {
+            path: '/subB',
+            handler: {
+              controller,
+              method: HttpMethod.GET
+            },
+            children: [
+              {
+                path: '/subB1',
+                handler: {
+                  controller,
+                  method: HttpMethod.GET
+                }
+              },
+              {
+                path: '/subB2',
+                handler: {
+                  controller,
+                  method: HttpMethod.GET
+                }
+              }
+            ]
+            
+          }
+        ]
+      }
+    ]
+  }
+];
+const app = new ExpressWebApp();
+app.setRoutes(routes, '');
