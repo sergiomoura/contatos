@@ -1,13 +1,13 @@
 import { describe, test, expect, afterAll } from 'vitest';
 import { Routes } from '@/app/Routes';
-import { settings } from '@/settings';
 import { HttpErrorMessages } from '@/errors/HttpErrorMessages';
+import { Infra } from '@/Infra';
 
-const App = settings.webApp;
+const App = Infra.createWebApp();
 App.setRoutes(Routes, '');
 
 const host = 'http://localhost';
-const port = settings.testPort;
+const port = Infra.PORT_TEST;
 const baseurl = '/api/v1';
 const uri = '/auth/register';
 const url = `${host}:${port}${baseurl}${uri}`;

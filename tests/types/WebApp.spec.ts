@@ -1,4 +1,4 @@
-import { settings } from '@/settings';
+import { Infra } from '@/Infra';
 import { type Controller } from '@/types/Controller';
 import { HttpMethod } from '@/types/HttpMethod';
 import { type Request } from '@/types/Request';
@@ -18,7 +18,7 @@ const subA = '/sub-a';
 const subB = '/sub-b';
 const subB1 = '/sub-b-1';
 const subB2 = '/sub-b-2';
-const app = settings.webApp;
+const app = Infra.createWebApp();
 const routes: Route[] = [
   {
     path: path1,

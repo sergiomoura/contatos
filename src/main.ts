@@ -1,3 +1,3 @@
 import { App } from '@/app/App';
-import { settings } from '@/settings';
-App.listen(settings.devPort);
+import { Infra } from './Infra';
+App.listen(Infra.PORT_DEV);

@@ -1,10 +1,10 @@
 import { CreateUserController } from '@/app/controllers/CreateUserController';
 import { CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
-import { settings } from '@/settings';
+import { Infra } from '@/Infra';
 import { HttpMethod } from '@/types/HttpMethod';
 import { type Route } from '@/types/Route';
 
-const repository = settings.repository;
+const repository = Infra.createRepository();
 const createUserUsecase = new CreateUserUseCase(repository);
 const createUserController = new CreateUserController(createUserUsecase);
 

@@ -1,7 +1,8 @@
 
 import { Routes } from '@/app/Routes';
-import { settings } from '@/settings';
-const App = settings.webApp;
+import { Infra } from '@/Infra';
+
+const App = Infra.createWebApp();
 App.setRoutes(Routes, '');
 
 export { App };
