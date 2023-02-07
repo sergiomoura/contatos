@@ -8,7 +8,7 @@ const repository = settings.repository;
 const createUserUsecase = new CreateUserUseCase(repository);
 const createUserController = new CreateUserController(createUserUsecase);
 
-const routes: Route[] = [
+export const Routes: Route[] = [
   {
     path: '/api/v1/auth/register',
     handler:
@@ -19,7 +19,3 @@ const routes: Route[] = [
     middlewares: []
   }
 ];
-
-const App = settings.webApp;
-App.setRoutes(routes, '');
-export { App };

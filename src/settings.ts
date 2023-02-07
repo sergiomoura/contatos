@@ -1,7 +1,7 @@
 import { type Repository } from '@/app/repositories/Repository';
-import { ExpressWebApp } from './app/infra/ExpressWebApp/ExpressWebApp';
-import { MemoryRepository } from './app/repositories/adapters/MemoryRepository';
-import { type WebApp } from './types/WebApp';
+import { ExpressWebApp } from '@/app/adapters/ExpressWebApp/ExpressWebApp';
+import { MemoryRepository } from '@/app/repositories/adapters/MemoryRepository';
+import { type WebApp } from '@/types/WebApp';
 
 interface settingsInterface {
   repository: Repository

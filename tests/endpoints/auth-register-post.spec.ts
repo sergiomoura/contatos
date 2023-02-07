@@ -1,7 +1,10 @@
 import { describe, test, expect, afterAll } from 'vitest';
-import { App } from '@/app/main/App';
-import { HttpErrorMessages } from '@/errors/HttpErrorMessages';
+import { Routes } from '@/app/Routes';
 import { settings } from '@/settings';
+import { HttpErrorMessages } from '@/errors/HttpErrorMessages';
+
+const App = settings.webApp;
+App.setRoutes(Routes, '');
 
 const host = 'http://localhost';
 const port = settings.testPort;
