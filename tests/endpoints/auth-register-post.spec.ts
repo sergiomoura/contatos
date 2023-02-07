@@ -1,7 +1,7 @@
 import { describe, test, expect, afterAll } from 'vitest';
 import { Routes } from '@/app/Routes';
-import { HttpErrorMessages } from '@/errors/HttpErrorMessages';
 import { Infra } from '@/Infra';
+import { HttpErrors } from '@/errors/HttpErrors';
 
 const App = Infra.createWebApp();
 App.setRoutes(Routes, '');
@@ -75,8 +75,8 @@ describe(
 
     const result = await response.text();
     
-    test('Should get a status 409', () => { expect(response.status).toEqual(409); });
-    test('Should get error message', () => { expect(result).toMatch(HttpErrorMessages.userAlreadyExist); });
+    test('Should get a status 409', () => { expect(response.status).toEqual(HttpErrors.userAlreadyExists.status); });
+    test('Should get error message', () => { expect(result).toMatch(HttpErrors.userAlreadyExists.error.message); });
   
   }
 

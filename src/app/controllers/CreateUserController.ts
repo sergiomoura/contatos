@@ -2,8 +2,8 @@ import { type Request } from '@/types/Request';
 import { type Controller } from '@/types/Controller';
 import { type CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
 import { type Response } from '@/types/Response';
-import { HttpErrorMessages } from '@/errors/HttpErrorMessages';
 import { type User } from '../entities/User';
+import { HttpErrors } from '@/errors/HttpErrors';
 
 interface CreateUserBody {
   name: string
@@ -37,8 +37,8 @@ export class CreateUserController implements Controller {
     } catch (error) {
 
       const res: Response = {
-        status: 409,
-        body: HttpErrorMessages.userAlreadyExist
+        status: HttpErrors.userAlreadyExists.status,
+        body: HttpErrors.userAlreadyExists.error.message
       };
       return res;
     
