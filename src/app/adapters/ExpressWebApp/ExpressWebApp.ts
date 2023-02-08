@@ -6,9 +6,11 @@ import { type Server } from 'http';
 import { type Router as ExpressRouterType } from 'express-serve-static-core';
 import express, { type Express, Router as createExpressRouter, type Request as ExpressRequest, type Response as ExpressResponse } from 'express';
 import { type Route } from '@/types/Route';
-import { HttpMethod } from '../../../types/HttpMethod';
+import { type Middleware } from '@/types/Middleware';
 
+type ExpressNextFunction = () => void;
 type ExpressController = (req: ExpressRequest, res: ExpressResponse) => void;
+type ExpressMiddleware = (req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) => void;
 
 export class ExpressWebApp implements WebApp {
 
@@ -54,12 +56,17 @@ export class ExpressWebApp implements WebApp {
   };
 
   private registerExpressRoute (route: Route, basePath: string = ''): void {
-
+    
     if (route.handler !== undefined) {
 
+      let expressMiddlewares: ExpressMiddleware[] = [];
+      if (route.middlewares !== undefined) {
+
+        expressMiddlewares = route.middlewares.map(mw => { return this.createExpressMiddleware(mw); });
+      
+      } ;
       const expressController = this.createExpressController(route.handler.controller);
-      console.log(`Defining: ${basePath + route.path}`);
-      this.router[route.handler.method](basePath + route.path, expressController);
+      this.router[route.handler.method](basePath + route.path, ...expressMiddlewares, expressController);
     
     }
   
@@ -78,70 +85,31 @@ export class ExpressWebApp implements WebApp {
       res.status(response.status).json(response.body);
     
     };
-
+    
     return expressController;
   
   }
 
-}
+  private createExpressMiddleware (middleware: Middleware): ExpressMiddleware {
 
-const responseBody = { msg: 'test' };
-const responseStatus = 200;
-const response = { status: responseStatus, body: responseBody };
-const controller = <Controller>(<unknown>{ handle: (req: Request) => { return response; } });
-const routes: Route[] = [
-  {
-    path: '',
-    middlewares: [],
-    handler: { method: HttpMethod.GET, controller },
-    children: [
-      {
-        path: '/test',
-        handler: {
-          method: HttpMethod.GET,
-          controller
-        },
-        middlewares: []
-      },
-      {
-        path: '/sub',
-        handler: { method: HttpMethod.GET, controller },
-        children: [
-          {
-            path: '/subA',
-            handler: {
-              controller,
-              method: HttpMethod.GET
-            }
-          },
-          {
-            path: '/subB',
-            handler: {
-              controller,
-              method: HttpMethod.GET
-            },
-            children: [
-              {
-                path: '/subB1',
-                handler: {
-                  controller,
-                  method: HttpMethod.GET
-                }
-              },
-              {
-                path: '/subB2',
-                handler: {
-                  controller,
-                  method: HttpMethod.GET
-                }
-              }
-            ]
-            
-          }
-        ]
+    const expressMiddleware = async (req, res, next): Promise<void> => {
+
+      const result = await middleware.handle(req);
+      if ('status' in result) {
+
+        res.status(result.status).json(result.body);
+      
+      } else {
+
+        req = result;
+        next();
+      
       }
-    ]
+    
+    };
+    
+    return expressMiddleware;
+  
   }
-];
-const app = new ExpressWebApp();
-app.setRoutes(routes, '');
+
+}
