@@ -49,10 +49,10 @@ describe(
       const regex = /^[0-9|a-z|-]{36}$/;
   
       expect(response.status).toEqual(201);
-      expect(result.id).toMatch(regex);
-      expect(result.name).toEqual(validName);
-      expect(result.email).toEqual(validEmail);
-      expect(result.password).toBeUndefined();
+      expect(result.user.id).toMatch(regex);
+      expect(result.user.name).toEqual(validName);
+      expect(result.user.email).toEqual(validEmail);
+      expect(result.user.password).toBeUndefined();
     
     });
 
