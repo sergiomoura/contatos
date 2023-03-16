@@ -33,19 +33,9 @@ export class ExpressWebApp implements WebApp {
   
   };
 
-  setRoutes (routes: Route[], basePath: string = ''): void {
+  setRoutes (routes: Route[]): void {
 
-    routes.forEach(route => {
-
-      this.registerExpressRoute(route, basePath);
-      
-      if (route.children !== undefined) {
-
-        this.setRoutes(route.children, basePath + route.path);
-
-      }
-    
-    });
+    routes.forEach(route => { this.registerExpressRoute(route); });
   
   }
 
@@ -56,19 +46,15 @@ export class ExpressWebApp implements WebApp {
   };
 
   private registerExpressRoute (route: Route, basePath: string = ''): void {
-    
-    if (route.handler !== undefined) {
 
-      let expressMiddlewares: ExpressMiddleware[] = [];
-      if (route.middlewares !== undefined) {
+    let expressMiddlewares: ExpressMiddleware[] = [];
+    if (route.middlewares !== undefined) {
 
-        expressMiddlewares = route.middlewares.map(mw => { return this.createExpressMiddleware(mw); });
+      expressMiddlewares = route.middlewares.map(mw => { return this.createExpressMiddleware(mw); });
       
-      } ;
-      const expressController = this.createExpressController(route.handler.controller);
-      this.router[route.handler.method](basePath + route.path, ...expressMiddlewares, expressController);
-    
-    }
+    } ;
+    const expressController = this.createExpressController(route.controller);
+    this.router[route.method](basePath + route.path, ...expressMiddlewares, expressController);
   
   }
   

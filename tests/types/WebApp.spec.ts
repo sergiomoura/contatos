@@ -3,9 +3,8 @@ import { type Controller } from '@/types/Controller';
 import { HttpMethod } from '@/types/HttpMethod';
 import { type Middleware } from '@/types/Middleware';
 import { type Request } from '@/types/Request';
-import { type Response } from '@/types/Response';
 import { type Route } from '@/types/Route';
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, test, vi, afterEach } from 'vitest';
 
 const host = 'http://localhost';
 const port = 3030;
@@ -14,94 +13,75 @@ const responseStatus = 200;
 const responseStatusError = 400;
 const responseOk = { status: responseStatus, body: responseBody };
 const responseFail = { status: responseStatusError, body: responseBody };
-const rejectionHandler = async (req: Request): Promise<Response> => {
+const rejectionMock = vi.fn();
+const admissionMock = vi.fn();
 
-  return await new Promise<Response>((resolve, reject) => setTimeout(() => {
+const rejectionMiddleware: Middleware = {
+  handle: async (request: Request) => {
 
-    console.log('rejectionHandler called');
-    resolve(<Response>responseFail);
+    rejectionMock();
+    return responseFail;
   
-  }, 10));
-
+  }
 };
-const admissionHandler = async (req: Request): Promise<Request> => {
 
-  return await new Promise<Request>((resolve, reject) => setTimeout(() => {
+const admissionMiddleware: Middleware = {
+  handle: async (request: Request) => {
 
-    console.log('acceptionHandler called');
-    resolve(<Request>responseOk);
+    admissionMock();
+    return request;
   
-  }, 10));
-
+  }
 };
-const rejectionMiddleware = <Middleware>(<unknown>{ handle: vi.fn(rejectionHandler) });
-const admissionMiddleware = <Middleware>(<unknown>{ handle: vi.fn(admissionHandler) });
+
 const controller = <Controller>(<unknown>{ handle: (req: Request) => { return responseOk; } });
 const path1 = '';
 const path2 = '/test';
-const sub = '/sub';
-const subA = '/sub-a';
-const subB = '/sub-b';
-const subB1 = '/sub-b-1';
-const subB2 = '/sub-b-2';
+const path3 = '/test/sub';
+const path4 = '/test/sub-a';
+const path5 = '/test/sub-b';
+const path6 = '/test/sub-c';
 const app = Infra.createWebApp();
 const routes: Route[] = [
   {
     path: path1,
+    middlewares: [],
+    method: HttpMethod.GET,
+    controller
+  },
+  {
+    path: path2,
+    middlewares: [admissionMiddleware],
+    method: HttpMethod.GET,
+    controller
+  },
+  {
+    path: path3,
     middlewares: [admissionMiddleware, admissionMiddleware],
-    handler: { method: HttpMethod.GET, controller },
-    children: [
-      {
-        path: path2,
-        handler: {
-          method: HttpMethod.GET,
-          controller
-        },
-        middlewares: [admissionMiddleware, admissionMiddleware]
-      },
-      {
-        path: sub,
-        handler: { method: HttpMethod.GET, controller },
-        children: [
-          {
-            path: subA,
-            handler: {
-              controller,
-              method: HttpMethod.GET
-            }
-          },
-          {
-            path: subB,
-            handler: {
-              controller,
-              method: HttpMethod.GET
-            },
-            children: [
-              {
-                path: subB1,
-                middlewares: [admissionMiddleware, admissionMiddleware, rejectionMiddleware],
-                handler: {
-                  controller,
-                  method: HttpMethod.GET
-                }
-              },
-              {
-                path: subB2,
-                handler: {
-                  controller,
-                  method: HttpMethod.GET
-                }
-              }
-            ]
-            
-          }
-        ]
-      }
-    ]
+    method: HttpMethod.GET,
+    controller
+  },
+  {
+    path: path4,
+    middlewares: [rejectionMiddleware, admissionMiddleware],
+    method: HttpMethod.GET,
+    controller
+  },
+  {
+    path: path5,
+    middlewares: [admissionMiddleware, rejectionMiddleware],
+    method: HttpMethod.GET,
+    controller
+  },
+  {
+    path: path6,
+    middlewares: [rejectionMiddleware, rejectionMiddleware],
+    method: HttpMethod.GET,
+    controller
   }
 ];
 
-app.setRoutes(routes, '');
+app.setRoutes(routes);
 app.listen(port);
 
 describe(
@@ -109,53 +89,75 @@ describe(
   
   () => {
 
+    afterEach(
+      () => {
+
+        admissionMock.mockClear();
+        rejectionMock.mockClear();
+      
+      }
+    );
+
     test('Should call level 1 controllers',
       async () => {
-        
+
         const response1 = await fetch(`${host}:${port}${path1}`);
         expect(response1.status).toBe(200);
         expect(await response1.json()).toEqual(responseBody);
-        
-        // const response2 = await fetch(`${host}:${port}${path2}`);
-        // expect(response2.status).toBe(200);
-        // expect(await response2.json()).toEqual(responseBody);
-      
+            
       }
     );
   
-    test('Should call level 2 controllers',
+    test('Should call admission middleware once',
       async () => {
 
-        const response1 = await fetch(`${host}:${port}${sub}${subA}`);
-        expect(response1.status).toBe(200);
-        expect(await response1.json()).toEqual(responseBody);
+        const response = await fetch(`${host}:${port}${path2}`);
+        expect(response.status).toBe(200);
+        expect(await response.json()).toEqual(responseBody);
+        expect(admissionMock).toBeCalledTimes(1);
+     
+      }
+    );
 
-        const response2 = await fetch(`${host}:${port}${sub}${subB}`);
-        expect(response2.status).toBe(200);
-        expect(await response2.json()).toEqual(responseBody);
+    test('Should call admission middleware twice',
+      async () => {
+
+        const response = await fetch(`${host}:${port}${path3}`);
+        expect(response.status).toBe(200);
+        expect(await response.json()).toEqual(responseBody);
+        expect(admissionMock).toBeCalledTimes(2);
+     
+      }
+    );
+
+    test('Should not call admission and should call rejection once.',
+      async () => {
+
+        const response = await fetch(`${host}:${port}${path4}`);
+        expect(response.status).toBe(responseStatusError);
+        expect(rejectionMock).toBeCalledTimes(1);
+        expect(admissionMock).toBeCalledTimes(0);
       
       }
     );
 
-    test('Should call level 3 controllers',
+    test('Should call admission once and should call rejection once.',
       async () => {
 
-        const response1 = await fetch(`${host}:${port}${sub}${subB}${subB1}`);
-        expect(response1.status).toBe(200);
-        expect(await response1.json()).toEqual(responseBody);
-
-        const response2 = await fetch(`${host}:${port}${sub}${subB}${subB2}`);
-        expect(response2.status).toBe(200);
-        expect(await response2.json()).toEqual(responseBody);
+        const response = await fetch(`${host}:${port}${path5}`);
+        expect(response.status).toBe(responseStatusError);
+        expect(rejectionMock).toBeCalledTimes(1);
+        expect(admissionMock).toBeCalledTimes(1);
       
       }
     );
 
-    test('Should call acceptionMiddleware',
+    test('Should call rejection once',
       async () => {
 
-        await fetch(`${host}:${port}${path1}`);
-        expect(admissionMiddleware.handle).toBeCalled();
+        const response = await fetch(`${host}:${port}${path6}`);
+        expect(response.status).toBe(responseStatusError);
+        expect(rejectionMock).toBeCalledTimes(1);
       
       }
     );

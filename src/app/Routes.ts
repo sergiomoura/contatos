@@ -11,11 +11,8 @@ const createUserController = new CreateUserController(createUserUsecase);
 export const Routes: Route[] = [
   {
     path: '/api/v1/auth/register',
-    handler:
-      {
-        controller: createUserController,
-        method: HttpMethod.POST
-      },
+    controller: createUserController,
+    method: HttpMethod.POST,
     middlewares: []
   }
 ];
