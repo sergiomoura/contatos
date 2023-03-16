@@ -23,7 +23,7 @@ export class LoginController implements Controller {
 
     const { email, password } = <LoginBody>(request.body);
     const loginOk = await this.verifyUserUseCase.execute(email, password);
-    console.log(email, password, loginOk);
+    
     if (!loginOk) {
 
       return FailedResponses.failedToLogin;

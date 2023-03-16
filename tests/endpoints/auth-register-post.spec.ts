@@ -3,27 +3,32 @@ import { Routes } from '@/app/Routes';
 import { Infra } from '@/Infra';
 import { FailedResponses } from '@/errors/FailedResponses';
 
-const App = Infra.createWebApp();
-App.setRoutes(Routes);
-
 const host = 'http://localhost';
 const port = Infra.PORT_TEST;
 const baseurl = '/api/v1';
-const uri = '/auth/register';
-const url = `${host}:${port}${baseurl}${uri}`;
 
 const validName = 'Jonh Doe';
 const validEmail = 'jonhdoe@test1.com';
 const validPassword = '123456';
 
-const validRequestBody = {
+const validRegisterRequestBody = {
   name: validName,
   email: validEmail,
   password: validPassword
 };
 
+const validLoginRequestBody = {
+  email: validEmail,
+  password: validPassword
+};
+
+const invalidLoginRequestBody = {
+  email: 'invalid@email.com',
+  password: 'invalid-password'
+};
+
 describe(
-  'Testing POST /auth/register endpoint',
+  'Testing /auth endpoints',
 
   async () => {
 
@@ -31,16 +36,20 @@ describe(
       () => { App.close(); }
     );
 
+    const App = Infra.createWebApp();
+    App.setRoutes(Routes);
     App.listen(port);
     
     test('Should create a user', async () => {
 
+      const uri = '/auth/register';
+      const url = `${host}:${port}${baseurl}${uri}`;
       const response = await fetch(
         url,
         {
           method: 'POST',
           headers: { 'Content-type': 'application/json' },
-          body: JSON.stringify(validRequestBody)
+          body: JSON.stringify(validRegisterRequestBody)
         }
       );
   
@@ -58,12 +67,14 @@ describe(
 
     test('Should get a "already existent user" error', async () => {
 
+      const uri = '/auth/register';
+      const url = `${host}:${port}${baseurl}${uri}`;
       const response = await fetch(
         url,
         {
           method: 'POST',
           headers: { 'Content-type': 'application/json' },
-          body: JSON.stringify(validRequestBody)
+          body: JSON.stringify(validRegisterRequestBody)
         }
       );
 
@@ -73,6 +84,8 @@ describe(
 
     test('Should return a "bad request" error', async () => {
 
+      const uri = '/auth/register';
+      const url = `${host}:${port}${baseurl}${uri}`;
       const invalidRequestBody = {
         name: 'oo',
         email: 'notanemail',
@@ -90,6 +103,42 @@ describe(
 
       expect(response.status).toEqual(FailedResponses.invalidDataForUserCreation.status);
       
+    });
+
+    test('Should get a succesful login response', async () => {
+
+      const uri = '/auth/login';
+      const url = `${host}:${port}${baseurl}${uri}`;
+      
+      const response = await fetch(
+        url,
+        {
+          method: 'POST',
+          headers: { 'Content-type': 'application/json' },
+          body: JSON.stringify(validLoginRequestBody)
+        }
+      );
+  
+      expect(response.status).toEqual(200);
+    
+    });
+
+    test('Should get a failed login response', async () => {
+
+      const uri = '/auth/login';
+      const url = `${host}:${port}${baseurl}${uri}`;
+      
+      const response = await fetch(
+        url,
+        {
+          method: 'POST',
+          headers: { 'Content-type': 'application/json' },
+          body: JSON.stringify(invalidLoginRequestBody)
+        }
+      );
+  
+      expect(response.status).toEqual(FailedResponses.failedToLogin.status);
+    
     });
       
   }
