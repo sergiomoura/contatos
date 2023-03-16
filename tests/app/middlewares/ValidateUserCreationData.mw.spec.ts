@@ -1,4 +1,5 @@
 import { ValidateUserCreationData } from '@/app/middlewares/ValidateUserCreationData.mw';
+import { FailedResponses } from '@/errors/FailedResponses';
 import { type Request } from '@/types/Request';
 import { describe, test, expect } from 'vitest';
 
@@ -22,20 +23,18 @@ describe(
   'ValidateUserCreationData.mw specifications',
   () => {
 
-    test('Should throw an error',
+    test('Should get a response with 400 status',
       async () => {
 
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-        const tryToHandle = async () => { await middleware.handle(invalidRequest); };
-        await expect(tryToHandle).rejects.toThrow();
-      
+        const result = await middleware.handle(invalidRequest);
+        expect(result).toEqual(FailedResponses.invalidDataForUserCreation);
+        
       }
     );
 
     test('Should return the request as is',
       async () => {
 
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         const request = await middleware.handle(validRequest);
         expect(request).toEqual(validRequest);
       

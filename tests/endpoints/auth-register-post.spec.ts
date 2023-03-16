@@ -1,22 +1,30 @@
 import { describe, test, expect, afterAll } from 'vitest';
 import { Routes } from '@/app/Routes';
 import { Infra } from '@/Infra';
-import { HttpErrors } from '@/errors/HttpErrors';
+import { FailedResponses } from '@/errors/FailedResponses';
 
 const App = Infra.createWebApp();
-App.setRoutes(Routes, '');
+App.setRoutes(Routes);
 
 const host = 'http://localhost';
 const port = Infra.PORT_TEST;
 const baseurl = '/api/v1';
 const uri = '/auth/register';
 const url = `${host}:${port}${baseurl}${uri}`;
+
 const validName = 'Jonh Doe';
 const validEmail = 'jonhdoe@test1.com';
 const validPassword = '123456';
 
+const validRequestBody = {
+  name: validName,
+  email: validEmail,
+  password: validPassword
+};
+
 describe(
-  'Testing successfull POST /auth/register endpoint',
+  'Testing POST /auth/register endpoint',
+
   async () => {
 
     afterAll(
@@ -24,60 +32,66 @@ describe(
     );
 
     App.listen(port);
-
-    const validRequestBody = {
-      name: validName,
-      email: validEmail,
-      password: validPassword
-    };
     
-    const response = await fetch(
-      url,
-      {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(validRequestBody)
-      }
-    );
+    test('Should create a user', async () => {
 
-    const result = await response.json();
-    
-    const regex = /^[0-9|a-z|-]{36}$/;
-
-    test('Should get a status 201', () => { expect(response.status).toEqual(201); });
-    test('Should get an id for the user', () => { expect(result.id).toMatch(regex); });
-    test('Should get the valid name', () => { expect(result.name).toEqual(validName); });
-    test('Should get the valid email', () => { expect(result.email).toEqual(validEmail); });
-    test('Should get no password back', () => { expect(result.password).toBeUndefined(); });
+      const response = await fetch(
+        url,
+        {
+          method: 'POST',
+          headers: { 'Content-type': 'application/json' },
+          body: JSON.stringify(validRequestBody)
+        }
+      );
   
-  }
-
-);
-
-describe(
-  'Testing unsuccessfull POST /auth/register endpoint',
-  async () => {
-
-    const validRequestBody = {
-      name: validName,
-      email: validEmail,
-      password: validPassword
-    };
-    
-    const response = await fetch(
-      url,
-      {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(validRequestBody)
-      }
-    );
-
-    const result = await response.text();
-    
-    test('Should get a status 409', () => { expect(response.status).toEqual(HttpErrors.userAlreadyExists.status); });
-    test('Should get error message', () => { expect(result).toMatch(HttpErrors.userAlreadyExists.error.message); });
+      const result = await response.json();
+      
+      const regex = /^[0-9|a-z|-]{36}$/;
   
+      expect(response.status).toEqual(201);
+      expect(result.id).toMatch(regex);
+      expect(result.name).toEqual(validName);
+      expect(result.email).toEqual(validEmail);
+      expect(result.password).toBeUndefined();
+    
+    });
+
+    test('Should get a "already existent user" error', async () => {
+
+      const response = await fetch(
+        url,
+        {
+          method: 'POST',
+          headers: { 'Content-type': 'application/json' },
+          body: JSON.stringify(validRequestBody)
+        }
+      );
+
+      expect(response.status).toEqual(FailedResponses.userAlreadyExists.status);
+    
+    });
+
+    test('Should return a "bad request" error', async () => {
+
+      const invalidRequestBody = {
+        name: 'oo',
+        email: 'notanemail',
+        password: 'short'
+      };
+
+      const response = await fetch(
+        url,
+        {
+          method: 'POST',
+          headers: { 'Content-type': 'application/json' },
+          body: JSON.stringify(invalidRequestBody)
+        }
+      );
+
+      expect(response.status).toEqual(FailedResponses.invalidDataForUserCreation.status);
+      
+    });
+      
   }
 
 );

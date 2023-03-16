@@ -3,7 +3,7 @@ import { type Controller } from '@/types/Controller';
 import { type CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
 import { type Response } from '@/types/Response';
 import { type User } from '../entities/User';
-import { HttpErrors } from '@/errors/HttpErrors';
+import { FailedResponses } from '@/errors/FailedResponses';
 
 interface CreateUserBody {
   name: string
@@ -36,11 +36,7 @@ export class CreateUserController implements Controller {
     
     } catch (error) {
 
-      const res: Response = {
-        status: HttpErrors.userAlreadyExists.status,
-        body: HttpErrors.userAlreadyExists.error.message
-      };
-      return res;
+      return FailedResponses.userAlreadyExists;
     
     }
   
