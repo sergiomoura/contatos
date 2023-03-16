@@ -7,6 +7,10 @@ export const FailedResponses = {
   userAlreadyExists: <Response> {
     status: 409,
     body: 'Usuário já cadastrado'
+  },
+  failedToLogin: <Response> {
+    status: 403,
+    body: 'Falha de autenticação'
   }
 
 };
