@@ -31,15 +31,13 @@ describe(
   'Testing /auth endpoints',
 
   async () => {
-
-    afterAll(
-      () => { App.close(); }
-    );
-
+    
     const App = Infra.createWebApp();
     App.setRoutes(Routes);
     App.listen(port);
-    
+
+    afterAll(() => { App.close(); });
+      
     test('Should create a user', async () => {
 
       const uri = '/auth/register';
@@ -104,7 +102,7 @@ describe(
       expect(response.status).toEqual(FailedResponses.invalidDataForUserCreation.status);
       
     });
-
+    
     test('Should get a succesful login response', async () => {
 
       const uri = '/auth/login';
@@ -122,7 +120,7 @@ describe(
       expect(response.status).toEqual(200);
     
     });
-
+    
     test('Should get a failed login response', async () => {
 
       const uri = '/auth/login';
@@ -140,7 +138,7 @@ describe(
       expect(response.status).toEqual(FailedResponses.failedToLogin.status);
     
     });
-      
+    
   }
 
 );
