@@ -2,7 +2,7 @@ import { FailedResponses } from '@/errors/FailedResponses';
 import { type Controller } from '@/types/Controller';
 import { type Request } from '@/types/Request';
 import { type Response } from '@/types/Response';
-import { tokenGenerator } from '@/utils/TokenGenerator';
+import { Tokenizer } from '@/utils/Tokenizer';
 import { type User } from '../entities/User';
 import { type GetUserByEmailUseCase } from '../usecases/GetUserByEmailUseCase';
 import { type VerifyUserUseCase } from '../usecases/VerifyUserUseCase';
@@ -37,7 +37,7 @@ export class LoginController implements Controller {
       email: user.email
     };
 
-    const token = tokenGenerator.create(userData);
+    const token = Tokenizer.create(userData);
     return {
       status: 200,
       body: { user: userData, token }

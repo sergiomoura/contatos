@@ -1,8 +1,8 @@
-import { type TokenGenerator } from '../TokenGenerator';
+import { type TokenizerInterface } from '../TokenizerInterface';
 import * as jwt from 'jsonwebtoken';
 const secret = 'secret';
 
-export class JwtTokenGenerator implements TokenGenerator {
+export class JwtTokenizer implements TokenizerInterface {
   
   create (payload: any): string {
 

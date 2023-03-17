@@ -4,7 +4,7 @@ import { type CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
 import { type Response } from '@/types/Response';
 import { type User } from '../entities/User';
 import { FailedResponses } from '@/errors/FailedResponses';
-import { tokenGenerator } from '@/utils/TokenGenerator';
+import { Tokenizer } from '@/utils/Tokenizer';
 
 interface CreateUserBody {
   name: string
@@ -28,7 +28,7 @@ export class CreateUserController implements Controller {
         email: user.email
       };
 
-      const token = tokenGenerator.create(userWithoutPassword);
+      const token = Tokenizer.create(userWithoutPassword);
       
       const res: Response = {
         status: 201,

@@ -1,4 +1,4 @@
-import { tokenGenerator } from '@/utils/TokenGenerator';
+import { Tokenizer } from '@/utils/Tokenizer';
 import { describe, expect, test } from 'vitest';
 
 describe(
@@ -6,7 +6,7 @@ describe(
   () => {
 
     const payload = { x: 1, y: 2 };
-    const token = tokenGenerator.create(payload);
+    const token = Tokenizer.create(payload);
 
     test('Should generate token', () => {
 
@@ -16,13 +16,13 @@ describe(
 
     test('Generated token should be valid', () => {
 
-      expect(tokenGenerator.validate(token)).toEqual(true);
+      expect(Tokenizer.validate(token)).toEqual(true);
     
     });
 
     test('Should decode token correctly', () => {
 
-      const decoded = tokenGenerator.decode(token);
+      const decoded = Tokenizer.decode(token);
       expect(decoded).toEqual(payload);
     
     });

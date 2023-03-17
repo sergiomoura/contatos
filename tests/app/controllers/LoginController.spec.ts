@@ -6,7 +6,7 @@ import { VerifyUserUseCase } from '@/app/usecases/VerifyUserUseCase';
 import { FailedResponses } from '@/errors/FailedResponses';
 import { Infra } from '@/Infra';
 import { type Request } from '@/types/Request';
-import { tokenGenerator } from '@/utils/TokenGenerator';
+import { Tokenizer } from '@/utils/Tokenizer';
 import { describe, test, expect } from 'vitest';
 
 describe(
@@ -45,7 +45,7 @@ describe(
       };
       expect(body.user).toEqual(expectedUserData);
 
-      expect(tokenGenerator.validate(body.token)).toEqual(true);
+      expect(Tokenizer.validate(body.token)).toEqual(true);
       
     });
 
