@@ -1,11 +1,13 @@
 import { FailedResponses } from '@/errors/FailedResponses';
+import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
+import { type Middleware } from '@/types/Middleware';
 import { type Request } from '@/types/Request';
 import { type Response } from '@/types/Response';
 import { Tokenizer } from '@/utils/Tokenizer';
 
-export class CheckRequestAuthentication {
+export class CheckRequestAuthentication implements Middleware {
 
-  async handle (request: Request): Promise<Request | Response> {
+  async handle (request: Request): Promise<AuthenticatedRequest | Response> {
 
     const authHeader = (<string>(request.headers?.Authorization));
     if (authHeader === undefined) {
@@ -22,8 +24,7 @@ export class CheckRequestAuthentication {
     
     }
 
-    const authRequest = Object.assign({}, request, { user: Tokenizer.decode(token) });
-    return authRequest;
+    return (<AuthenticatedRequest>Object.assign({}, request, { user: Tokenizer.decode(token) }));
   
   }
 
