@@ -95,8 +95,6 @@ export class ExpressWebApp implements WebApp {
       } else {
 
         req = result;
-        console.log('no adapter...');
-        console.log(req.user);
         next();
       
       }

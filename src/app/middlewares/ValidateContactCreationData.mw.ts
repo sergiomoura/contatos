@@ -12,10 +12,8 @@ export class ValidateContactCreationData implements Middleware {
     const jsonValidator = Infra.createJsonValidator();
     
     const validationResult = jsonValidator.validate(CreateContactDataSchema, request.body);
-    console.log(request.body);
     if (!validationResult.isValid) {
 
-      console.log(validationResult.data);
       return FailedResponses.invalidDataForContactCreation;
 
     }

@@ -36,8 +36,6 @@ export class CheckRequestAuthentication implements Middleware {
     // const authRequest = (<AuthenticatedRequest>Object.assign({}, request, { user: Tokenizer.decode(token) }));
     const authRequest = (<AuthenticatedRequest>request);
     authRequest.user = Tokenizer.decode(token);
-    console.log('no middleware...');
-    console.log(authRequest.user);
     return authRequest;
   
   }
