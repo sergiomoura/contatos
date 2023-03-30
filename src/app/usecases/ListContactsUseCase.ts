@@ -1,7 +1,7 @@
 import { type Contact } from '../entities/Contact';
 import { type Repository } from '../repositories/Repository';
 
-export class GetContactsUseCase {
+export class ListContactsUseCase {
 
   constructor (private readonly repository: Repository) {}
   async execute (userId: string): Promise<Contact[]> {

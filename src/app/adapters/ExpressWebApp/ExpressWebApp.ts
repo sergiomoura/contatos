@@ -7,6 +7,7 @@ import { type Router as ExpressRouterType } from 'express-serve-static-core';
 import express, { type Express, Router as createExpressRouter, type Request as ExpressRequest, type Response as ExpressResponse } from 'express';
 import { type Route } from '@/types/Route';
 import { type Middleware } from '@/types/Middleware';
+import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 
 type ExpressNextFunction = () => void;
 type ExpressController = (req: ExpressRequest, res: ExpressResponse) => void;
@@ -67,6 +68,12 @@ export class ExpressWebApp implements WebApp {
         body: req.body
       };
 
+      if (req.user !== undefined) {
+
+        (<AuthenticatedRequest>request).user = req.user;
+      
+      }
+
       const response = await controller.handle(request);
       res.status(response.status).json(response.body);
     
@@ -88,6 +95,8 @@ export class ExpressWebApp implements WebApp {
       } else {
 
         req = result;
+        console.log('no adapter...');
+        console.log(req.user);
         next();
       
       }

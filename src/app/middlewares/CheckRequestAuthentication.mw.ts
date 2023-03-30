@@ -8,23 +8,37 @@ import { Tokenizer } from '@/utils/Tokenizer';
 export class CheckRequestAuthentication implements Middleware {
 
   async handle (request: Request): Promise<AuthenticatedRequest | Response> {
-
-    const authHeader = (<string>(request.headers?.Authorization));
+    
+    const authHeader = (<string>(request.headers?.authorization));
+    
     if (authHeader === undefined) {
 
       return FailedResponses.forbiden;
     
     }
+
+    const [schema, token] = authHeader.split(' ');
     
-    const token = authHeader.replace('bearer ', '');
+    if (schema.toLowerCase() !== 'bearer') {
+
+      return FailedResponses.forbiden;
+    
+    }
+    
     const tokenOk = Tokenizer.validate(token);
+    
     if (!tokenOk) {
 
       return FailedResponses.forbiden;
     
     }
 
-    return (<AuthenticatedRequest>Object.assign({}, request, { user: Tokenizer.decode(token) }));
+    // const authRequest = (<AuthenticatedRequest>Object.assign({}, request, { user: Tokenizer.decode(token) }));
+    const authRequest = (<AuthenticatedRequest>request);
+    authRequest.user = Tokenizer.decode(token);
+    console.log('no middleware...');
+    console.log(authRequest.user);
+    return authRequest;
   
   }
 

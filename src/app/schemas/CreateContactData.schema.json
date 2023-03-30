@@ -1,0 +1,24 @@
+{
+  "$id": "/schemas/CreateContactData",
+  "type": "object",
+  "properties": {
+    "name":{
+      "type":"string",
+      "minLength": 3
+    },
+    "emails":{
+      "type":"array",
+      "items": {
+        "type":"string",
+        "format":"email"
+      }
+    },
+    "phoneNumbers": {
+      "type":"array",
+      "items":{
+        "type":"string"
+      }
+    }
+  },
+  "required": ["name", "emails", "phoneNumbers"]
+}

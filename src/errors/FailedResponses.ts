@@ -4,6 +4,10 @@ export const FailedResponses = {
     status: 400,
     body: 'Dados inválidos para criação de usuário'
   },
+  invalidDataForContactCreation: <Response> {
+    status: 400,
+    body: 'Dados inválidos para contato'
+  },
   userAlreadyExists: <Response> {
     status: 409,
     body: 'Usuário já cadastrado'

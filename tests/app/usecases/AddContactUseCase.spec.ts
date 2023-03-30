@@ -3,7 +3,7 @@ import { Email } from '@/app/entities/Email';
 import { PhoneNumber } from '@/app/entities/PhoneNumber';
 import { AddContactUseCase } from '@/app/usecases/AddContactUseCase';
 import { CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
-import { GetContactsUseCase } from '@/app/usecases/GetContactsUseCase';
+import { ListContactsUseCase } from '@/app/usecases/ListContactsUseCase';
 import { Errors } from '@/errors/Errors';
 import { Infra } from '@/Infra';
 import { describe, expect, test } from 'vitest';
@@ -29,7 +29,7 @@ describe(
     const contact = Contact.create(validContactName, emails, phones);
   
     const addContactUseCase = new AddContactUseCase(repository);
-    const getContactsUseCase = new GetContactsUseCase(repository);
+    const getContactsUseCase = new ListContactsUseCase(repository);
 
     test('Should add a contact to the user', async () => {
 
