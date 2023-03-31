@@ -5,12 +5,7 @@ import { type Response } from '@/types/Response';
 import { FailedResponses } from '@/errors/FailedResponses';
 import { Tokenizer } from '@/utils/Tokenizer';
 import { Mappers } from '../mappers/Mappers';
-
-interface CreateUserBody {
-  name: string
-  email: string
-  password: string
-}
+import { type UserInDTO } from '../dtos/UserContact.indto';
 
 export class CreateUserController implements Controller {
 
@@ -18,10 +13,10 @@ export class CreateUserController implements Controller {
   async handle (request: Request): Promise<Response> {
 
     // TODO: validar corpo da requisição contra um schema para garantir os campos de usuário
-    const { name, email, password } = <CreateUserBody>request.body;
+    const userInDto = <UserInDTO>request.body;
     try {
 
-      const user = await this.creatUserUseCase.execute(name, email, password);
+      const user = await this.creatUserUseCase.execute(userInDto);
       const userDto = Mappers.getUserOutDto(user);
 
       const token = Tokenizer.create(userDto);
