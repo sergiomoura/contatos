@@ -1,1 +1,3 @@
-export type EmailInDTO = string;
+export type EmailInDTO = {
+  address: string
+};

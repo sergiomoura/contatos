@@ -8,6 +8,10 @@ export const FailedResponses = {
     status: 400,
     body: 'Dados inválidos para contato'
   },
+  invalidDataForEmailCreation: <Response> {
+    status: 400,
+    body: 'Endereço de email inválido'
+  },
   userAlreadyExists: <Response> {
     status: 409,
     body: 'Usuário já cadastrado'

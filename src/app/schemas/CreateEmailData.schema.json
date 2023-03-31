@@ -1,0 +1,11 @@
+{
+  "$id": "/schemas/CreateEmailData",
+  "type": "object",
+  "properties": {
+    "address":{
+      "type":"string",
+      "format": "email"
+    }
+  },
+  "required": ["address"]
+}
