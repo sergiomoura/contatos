@@ -61,11 +61,7 @@ export class MemoryRepository implements Repository {
   async deleteContact (contactId: string): Promise<void> {
 
     const userData = this.findContactOwner(contactId);
-    if (userData === undefined) { throw Errors.unexistentContactError; }
-
     const index = userData.contacts.findIndex(contact => contact.id === contactId);
-    if (index === -1) { throw Errors.unexistentContactError; }
-    
     userData.contacts.splice(index, 1);
   
   }
@@ -108,9 +104,9 @@ export class MemoryRepository implements Repository {
   
   }
 
-  private findContactOwner (contactId: string): UserData | undefined {
+  private findContactOwner (contactId: string): UserData {
 
-    return this.users.find(
+    const owner = this.users.find(
       userData => {
 
         const contact = userData.contacts.find(contact => contact.id === contactId);
@@ -118,6 +114,14 @@ export class MemoryRepository implements Repository {
       
       }
     );
+
+    if (owner === undefined) {
+
+      throw Errors.unexistentContactError;
+    
+    }
+
+    return owner;
   
   }
 

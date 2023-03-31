@@ -14,7 +14,6 @@ export class DeleteContactController implements Controller {
     const contactId = request.params?.contactId;
     
     // TODO: Put this validation into a middleware  with other validations
-    console.log(request.params);
     if (contactId === undefined) {
       
       return { status: 400 };
