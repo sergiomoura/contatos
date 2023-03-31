@@ -3,7 +3,7 @@ import { type Controller } from '@/types/Controller';
 import { type Request } from '@/types/Request';
 import { type Response } from '@/types/Response';
 import { Tokenizer } from '@/utils/Tokenizer';
-import { type User } from '../entities/User';
+import { Mappers } from '../mappers/Mappers';
 import { type GetUserByEmailUseCase } from '../usecases/GetUserByEmailUseCase';
 import { type VerifyUserUseCase } from '../usecases/VerifyUserUseCase';
 
@@ -31,16 +31,12 @@ export class LoginController implements Controller {
     }
     
     const user = await this.getUserByEmailUseCase.execute(email);
-    const userData: Omit<User, 'password'> = {
-      id: user.id,
-      name: user.name,
-      email: user.email
-    };
+    const userDto = Mappers.getUserOutDto(user);
 
-    const token = Tokenizer.create(userData);
+    const token = Tokenizer.create(userDto);
     return {
       status: 200,
-      body: { user: userData, token }
+      body: { user: userDto, token }
     };
   
   }

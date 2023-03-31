@@ -1,6 +1,7 @@
 import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Controller } from '@/types/Controller';
 import { type Response } from '@/types/Response';
+import { Mappers } from '../mappers/Mappers';
 import { type ListContactsUseCase } from '../usecases/ListContactsUseCase';
 
 export class ListContactsController implements Controller {
@@ -11,7 +12,7 @@ export class ListContactsController implements Controller {
     const contacts = await this.getContactsUseCase.execute(request.user.id);
     return <Response>{
       status: 200,
-      body: contacts
+      body: contacts.map(Mappers.getContactOutDto)
     };
   
   }

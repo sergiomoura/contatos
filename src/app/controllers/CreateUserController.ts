@@ -2,9 +2,9 @@ import { type Request } from '@/types/Request';
 import { type Controller } from '@/types/Controller';
 import { type CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
 import { type Response } from '@/types/Response';
-import { type User } from '../entities/User';
 import { FailedResponses } from '@/errors/FailedResponses';
 import { Tokenizer } from '@/utils/Tokenizer';
+import { Mappers } from '../mappers/Mappers';
 
 interface CreateUserBody {
   name: string
@@ -22,17 +22,13 @@ export class CreateUserController implements Controller {
     try {
 
       const user = await this.creatUserUseCase.execute(name, email, password);
-      const userWithoutPassword: Omit<User, 'password'> = {
-        id: user.id,
-        name: user.name,
-        email: user.email
-      };
+      const userDto = Mappers.getUserOutDto(user);
 
-      const token = Tokenizer.create(userWithoutPassword);
+      const token = Tokenizer.create(userDto);
       
       const res: Response = {
         status: 201,
-        body: { user: userWithoutPassword, token }
+        body: { user: userDto, token }
       };
 
       return res;

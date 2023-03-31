@@ -1,6 +1,7 @@
 import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Controller } from '@/types/Controller';
 import { type Response } from '@/types/Response';
+import { Mappers } from '../mappers/Mappers';
 import { type AddContactUseCase } from '../usecases/AddContactUseCase';
 
 export class AddContactController implements Controller {
@@ -13,17 +14,10 @@ export class AddContactController implements Controller {
     const phoneNumbers = (<{ phoneNumbers: string[] }>request.body).phoneNumbers;
 
     const contact = await this.addContactsUseCase.execute(request.user.id, name, emails, phoneNumbers);
-    
-    const responseBody = {
-      id: contact.id,
-      name: contact.name,
-      emails: contact.emails.map(e => { return { id: e.id, address: e.address }; }),
-      phoneNumbers: contact.phoneNumbers.map(e => { return { id: e.id, number: e.number }; })
-    };
 
     return <Response>{
       status: 200,
-      body: responseBody
+      body: Mappers.getContactOutDto(contact)
     };
   
   }
