@@ -8,8 +8,9 @@ export class AddContactUseCase {
 
   constructor (private readonly repository: Repository) {}
   async execute (userId: string, contactInDto: ContactInDTO): Promise<Contact> {
-    
-    const contact = Contact.create(contactInDto.name, contactInDto.emails.map(Email.create), contactInDto.phoneNumbers.map(PhoneNumber.create));
+
+    const emails = (<string[]>(<unknown>contactInDto.emails));
+    const contact = Contact.create(contactInDto.name, emails.map(Email.create), contactInDto.phoneNumbers.map(PhoneNumber.create));
     await this.repository.addContactToUser(userId, contact);
     return contact;
   
