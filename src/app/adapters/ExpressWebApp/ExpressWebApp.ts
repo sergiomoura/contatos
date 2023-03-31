@@ -65,7 +65,8 @@ export class ExpressWebApp implements WebApp {
 
       const request: Request = {
         headers: req.headers,
-        body: req.body
+        body: req.body,
+        params: req.params
       };
 
       if (req.user !== undefined) {
