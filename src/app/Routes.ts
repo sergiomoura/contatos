@@ -25,6 +25,9 @@ import { AddPhoneNumberUseCase } from './usecases/AddPhoneNumberUseCase';
 import { ValidatePhoneNumberCreationData } from './middlewares/ValidatePhoneNumberCreationData.mw';
 import { DeletePhoneNumberController } from './controllers/DeletePhoneNumberController';
 import { DeletePhoneNumberUseCase } from './usecases/DeletePhoneNumberUseCase';
+import { UpdateUserController } from './controllers/UpdateUserController';
+import { UpdateUserUseCase } from './usecases/UpdateUserUseCase';
+import { ValidateUserUpdateData } from './middlewares/ValidateUserUpdateData.mw';
 
 const repository = Infra.createRepository();
 const createUserUsecase = new CreateUserUseCase(repository);
@@ -37,6 +40,7 @@ const addEmailController = new AddEmailController(new AddEmailUseCase(repository
 const deleteEmailController = new DeleteEmailController(new DeleteEmailUseCase(repository));
 const addPhoneNumberController = new AddPhoneNumberController(new AddPhoneNumberUseCase(repository));
 const deletePhoneNumberController = new DeletePhoneNumberController(new DeletePhoneNumberUseCase(repository));
+const updateUserController = new UpdateUserController(new UpdateUserUseCase(repository));
 
 export const Routes: Route[] = [
   {
@@ -50,6 +54,12 @@ export const Routes: Route[] = [
     controller: loginUserController,
     method: HttpMethod.POST,
     middlewares: []
+  },
+  {
+    path: '/api/v1/profile',
+    controller: updateUserController,
+    method: HttpMethod.PUT,
+    middlewares: [new CheckRequestAuthentication(), new ValidateUserUpdateData()]
   },
   {
     path: '/api/v1/contacts',

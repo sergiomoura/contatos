@@ -1,5 +1,5 @@
 {
-  "$id": "/schemas/CreateEmailData",
+  "$id": "/schemas/CreatePhoneNumberData",
   "type": "object",
   "properties": {
     "number":{

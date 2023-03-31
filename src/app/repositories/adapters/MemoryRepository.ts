@@ -104,6 +104,17 @@ export class MemoryRepository implements Repository {
   
   }
 
+  async changeUserInfo (userId: string, newName: string, newEmail: string, newPassword?: string | undefined): Promise<User> {
+
+    const userData = this.users.find(ud => ud.user.id === userId);
+    if (userData === undefined) { throw Errors.unexistentUserError; }
+    userData.user.name = newName;
+    userData.user.email = newEmail;
+    if (newPassword !== undefined) { userData.user.password = newPassword; };
+    return userData.user;
+    
+  }
+
   private findContactOwner (contactId: string): UserData {
 
     const owner = this.users.find(
