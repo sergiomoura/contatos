@@ -12,6 +12,10 @@ export const FailedResponses = {
     status: 400,
     body: 'Endereço de email inválido'
   },
+  invalidDataForPhoneNumberCreation: <Response> {
+    status: 400,
+    body: 'Número de telefone inválido'
+  },
   userAlreadyExists: <Response> {
     status: 409,
     body: 'Usuário já cadastrado'

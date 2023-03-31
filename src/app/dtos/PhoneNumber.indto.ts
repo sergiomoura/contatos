@@ -1,1 +1,3 @@
-export type PhoneNumberInDTO = string;
+export type PhoneNumberInDTO = {
+  number: string
+};

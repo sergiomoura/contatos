@@ -20,6 +20,9 @@ import { AddEmailController } from './controllers/AddEmailController';
 import { AddEmailUseCase } from './usecases/AddEmailUseCase';
 import { DeleteEmailUseCase } from './usecases/DeleteEmailUseCase';
 import { DeleteEmailController } from './controllers/DeleteEmailController';
+import { AddPhoneNumberController } from './controllers/AddPhoneNumberController';
+import { AddPhoneNumberUseCase } from './usecases/AddPhoneNumberUseCase';
+import { ValidatePhoneNumberCreationData } from './middlewares/ValidatePhoneNumberCreationData.mw';
 
 const repository = Infra.createRepository();
 const createUserUsecase = new CreateUserUseCase(repository);
@@ -30,6 +33,8 @@ const addContactController = new AddContactController(new AddContactUseCase(repo
 const deleteContactController = new DeleteContactController(new DeleteContactUseCase(repository));
 const addEmailController = new AddEmailController(new AddEmailUseCase(repository));
 const deleteEmailController = new DeleteEmailController(new DeleteEmailUseCase(repository));
+const addPhoneNumberController = new AddPhoneNumberController(new AddPhoneNumberUseCase(repository));
+
 export const Routes: Route[] = [
   {
     path: '/api/v1/auth/register',
@@ -72,5 +77,11 @@ export const Routes: Route[] = [
     controller: deleteEmailController,
     method: HttpMethod.DELETE,
     middlewares: [new CheckRequestAuthentication()]
+  },
+  {
+    path: '/api/v1/contacts/:contactId/phones',
+    controller: addPhoneNumberController,
+    method: HttpMethod.POST,
+    middlewares: [new CheckRequestAuthentication(), new ValidatePhoneNumberCreationData()]
   }
 ];
