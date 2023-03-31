@@ -8,7 +8,7 @@ export class ListContactsController implements Controller {
   constructor (private readonly getContactsUseCase: ListContactsUseCase) {}
   async handle (request: AuthenticatedRequest): Promise<Response> {
 
-    const contacts = this.getContactsUseCase.execute(request.user.id);
+    const contacts = await this.getContactsUseCase.execute(request.user.id);
     return <Response>{
       status: 200,
       body: contacts
