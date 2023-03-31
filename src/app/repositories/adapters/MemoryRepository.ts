@@ -62,7 +62,10 @@ export class MemoryRepository implements Repository {
 
     const userData = this.findContactOwner(contactId);
     if (userData === undefined) { throw Errors.unexistentContactError; }
+
     const index = userData.contacts.findIndex(contact => contact.id === contactId);
+    if (index === -1) { throw Errors.unexistentContactError; }
+    
     userData.contacts.splice(index, 1);
   
   }
