@@ -10,7 +10,8 @@ export class AddContactUseCase {
   async execute (userId: string, contactInDto: ContactInDTO): Promise<Contact> {
 
     const emails = (<string[]>(<unknown>contactInDto.emails));
-    const contact = Contact.create(contactInDto.name, emails.map(Email.create), contactInDto.phoneNumbers.map(PhoneNumber.create));
+    const phoneNumbers = (<string[]>(<unknown>contactInDto.phoneNumbers));
+    const contact = Contact.create(contactInDto.name, emails.map(Email.create), phoneNumbers.map(PhoneNumber.create));
     await this.repository.addContactToUser(userId, contact);
     return contact;
   
