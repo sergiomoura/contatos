@@ -22,7 +22,7 @@ describe(
     
     const repository = Infra.createRepository();
     const createUserUseCase = new CreateUserUseCase(repository);
-    const user = await createUserUseCase.execute(validName, validEmail, validPassword);
+    const user = await createUserUseCase.execute({ name: validName, email: validEmail, password: validPassword });
 
     const emails = [Email.create(validContactEmail)];
     const phones = [PhoneNumber.create(validContactPhone)];

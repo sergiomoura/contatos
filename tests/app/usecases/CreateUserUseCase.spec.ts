@@ -21,7 +21,7 @@ describe(
     test('Should create a user',
       async () => {
 
-        const user = await createUserUseCase.execute(validName, validEmail, validPassword);
+        const user = await createUserUseCase.execute({ name: validName, email: validEmail, password: validPassword });
         expect(user).toBeInstanceOf(User);
         expect(user.name).toEqual(validName);
         expect(user.email).toEqual(validEmail);
@@ -34,7 +34,7 @@ describe(
       async () => {
 
         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-        const tryToCreate = async () => { await createUserUseCase.execute(validName, validEmail, validPassword); };
+        const tryToCreate = async () => { await createUserUseCase.execute({ name: validName, email: validEmail, password: validPassword }); };
         await expect(tryToCreate).rejects.toThrowError(Errors.userAlreadyExistsError);
       
       }

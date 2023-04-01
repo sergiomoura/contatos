@@ -23,7 +23,7 @@ describe(
     const getUserByEmailUseCase = new GetUserByEmailUseCase(repository);
     const createUserUseCase = new CreateUserUseCase(repository);
     const loginController = new LoginController(verifyUserUseCase, getUserByEmailUseCase);
-    const user = await createUserUseCase.execute(validName, validEmail, validPassword);
+    const user = await createUserUseCase.execute({ name: validName, email: validEmail, password: validPassword });
 
     test('Should get a successful login', async () => {
 

@@ -19,7 +19,7 @@ describe(
     const createUserUseCase = new CreateUserUseCase(repository);
     const verifyUserUseCase = new VerifyUserUseCase(repository);
 
-    await createUserUseCase.execute(validName, validEmail, validPassword);
+    await createUserUseCase.execute({ name: validName, email: validEmail, password: validPassword });
     
     test('User should be verified', async () => {
 
