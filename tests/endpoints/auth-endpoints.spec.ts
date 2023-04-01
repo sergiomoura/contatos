@@ -1,10 +1,10 @@
 import { describe, test, expect, afterAll } from 'vitest';
 import { Routes } from '@/app/Routes';
-import { Infra } from '@/Infra';
+import { EnvType, Infra } from '@/Infra';
 import { FailedResponses } from '@/errors/FailedResponses';
 
 const host = 'http://localhost';
-const port = Infra.PORT_TEST;
+const port = Infra.getPort(EnvType.TEST);
 const baseurl = '/api/v1';
 
 const validName = 'Jonh Doe';
