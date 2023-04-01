@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsnd -r tsconfig-paths/register --transpile-only --respawn ./src/main.ts",
-    "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start": "ts-node -r tsconfig-paths/register --transpile-only src/main.ts",
     "test": "vitest --ui",
     "test:endpoints": "vitest --ui ./tests/endpoints/"
   },
