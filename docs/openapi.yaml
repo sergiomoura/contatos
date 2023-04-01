@@ -1,0 +1,97 @@
+openapi: 3.0.0
+
+info:
+  title: Gerenciamento de Contatos
+  description: API de Gerenciamento de Contatos para estudo e realização de desenvolvimento de frontend
+  version: 1.0.0
+  contact:
+    name: Sérgio Moura
+    url: 'https://github.com/sergiomoura'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+# TODO: Add API Logo
+#  x-logo:
+#    url: 'https://www.feedgy.solar/wp-content/uploads/2022/07/Sans-titre-1.png'
+
+components: 
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security: 
+  -  bearerAuth: []
+
+servers:
+  - url: 'https://contatos-api.fly.dev/api/v1'
+
+paths:
+  /auth/register:
+    post:
+      operationId: registerUser
+      security: []
+      summary: Registra um novo usuário
+      description: Cria um novo usuário na aplicação
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Usuário registrado com sucesso
+        '400':
+          description: Requisição inválida
+        '409':
+          description: O usuário já existe
+
+  /auth/login:
+    post:
+      summary: Autentica um usuário
+      operationId: login
+      description: Autentica um usuário existente na aplicação
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Usuário autenticado com sucesso
+        '401':
+          description: Credenciais inválidas
+
+  /contacts/{contactId}:
+    delete:
+      summary: Remove um contato
+      operationId: deleteContact
+      description: Remove um contato existente na aplicação
+      parameters:
+        - name: contactId
+          in: path
+          description: ID do contato a ser removido
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Contato removido com sucesso
+        '404':
+          description: Contato não encontrado      
+    
