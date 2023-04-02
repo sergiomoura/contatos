@@ -8,6 +8,7 @@ import express, { type Express, Router as createExpressRouter, type Request as E
 import { type Route } from '@/types/Route';
 import { type Middleware } from '@/types/Middleware';
 import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
+import cors from 'cors';
 
 type ExpressNextFunction = () => void;
 type ExpressController = (req: ExpressRequest, res: ExpressResponse) => void;
@@ -23,6 +24,7 @@ export class ExpressWebApp implements WebApp {
 
     this.app = express();
     this.router = createExpressRouter();
+    this.app.use(cors());
     this.app.use(express.json());
     this.app.use(this.router);
   
