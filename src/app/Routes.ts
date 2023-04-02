@@ -28,6 +28,7 @@ import { DeletePhoneNumberUseCase } from './usecases/DeletePhoneNumberUseCase';
 import { UpdateUserController } from './controllers/UpdateUserController';
 import { UpdateUserUseCase } from './usecases/UpdateUserUseCase';
 import { ValidateUserUpdateData } from './middlewares/ValidateUserUpdateData.mw';
+import { GetOpenApiSpecController } from './controllers/GetOpenApiSpec';
 
 const repository = Infra.createRepository();
 const createUserUsecase = new CreateUserUseCase(repository);
@@ -41,8 +42,15 @@ const deleteEmailController = new DeleteEmailController(new DeleteEmailUseCase(r
 const addPhoneNumberController = new AddPhoneNumberController(new AddPhoneNumberUseCase(repository));
 const deletePhoneNumberController = new DeletePhoneNumberController(new DeletePhoneNumberUseCase(repository));
 const updateUserController = new UpdateUserController(new UpdateUserUseCase(repository));
+const getOpenApiSpecController = new GetOpenApiSpecController();
 
 export const Routes: Route[] = [
+  {
+    path: '/api/v1/docs',
+    controller: getOpenApiSpecController,
+    method: HttpMethod.GET,
+    middlewares: []
+  },
   {
     path: '/api/v1/auth/register',
     controller: createUserController,
