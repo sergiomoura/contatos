@@ -20,7 +20,7 @@ export class DeleteContactController implements Controller {
     
     }
     await this.deleteContactUseCase.execute(userId, contactId);
-    return { status: 200 };
+    return { status: 204 };
     
   }
 

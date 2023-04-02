@@ -37,7 +37,7 @@
       "post": {
         "operationId": "registerUser",
         "security": [],
-        "summary": "Registra um novo usuário",
+        "summary": "Registrar um novo usuário",
         "description": "Cria um novo usuário na aplicação",
         "requestBody": {
           "required": true,
@@ -65,17 +65,17 @@
             "description": "Usuário registrado com sucesso"
           },
           "400": {
-            "description": "Requisição inválida"
+            "description": "Dados inválidos para criação de usuário"
           },
           "409": {
-            "description": "O usuário já existe"
+            "description": "Usuário já cadastrado"
           }
         }
       }
     },
     "/auth/login": {
       "post": {
-        "summary": "Autentica um usuário",
+        "summary": "Autenticar um usuário",
         "operationId": "login",
         "description": "Autentica um usuário existente na aplicação",
         "requestBody": {
@@ -85,7 +85,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "username": {
+                  "email": {
                     "type": "string"
                   },
                   "password": {
@@ -108,7 +108,7 @@
     },
     "/contacts/{contactId}": {
       "delete": {
-        "summary": "Remove um contato",
+        "summary": "Remover um contato",
         "operationId": "deleteContact",
         "description": "Remove um contato existente na aplicação",
         "parameters": [

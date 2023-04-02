@@ -21,11 +21,11 @@ export const FailedResponses = {
     body: 'Usuário já cadastrado'
   },
   failedToLogin: <Response> {
-    status: 403,
+    status: 401,
     body: 'Falha de autenticação'
   },
   forbiden: <Response>{
-    status: 401,
+    status: 403,
     body: 'Acesso negado'
   }
 
