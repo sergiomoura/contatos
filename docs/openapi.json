@@ -204,6 +204,52 @@
         }
       }
     },
+    "/contacts":{
+      "get": {
+        "summary": "Listar contatos",
+        "description": "Lista contatos do usuário logado",
+        "operationId": "listContacts",
+        "responses": {
+          "200": {
+            "description": "Listando os usuários",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "array",
+                  "items":{
+                    "type": "object",
+                    "properties": {
+                      "id":{"type": "string"},
+                      "name":{"type": "string"},
+                      "emails":{
+                        "type":"array",
+                        "items":{
+                          "type": "object",
+                          "properties": {
+                            "id": {"type": "string"},
+                            "address": {"type": "string"}
+                          }
+                        }
+                      },
+                      "phoneNumbers":{
+                        "type":"array",
+                        "items":{
+                          "type": "object",
+                          "properties": {
+                            "id": {"type": "string"},
+                            "number": {"type": "string"}
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/contacts/{contactId}": {
       "delete": {
         "summary": "Remover um contato",
