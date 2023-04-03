@@ -64,19 +64,25 @@
           "201": {
             "description": "Usuário registrado com sucesso",
             "content": {
-              "application/json":{
-                "schema":{
+              "application/json": {
+                "schema": {
                   "type": "object",
                   "properties": {
-                    "user":{
+                    "user": {
                       "type": "object",
                       "properties": {
-                        "id":{"type": "string"},
-                        "name":{"type": "string"},
-                        "email":{"type": "string"}
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
                       }
                     },
-                    "token":{
+                    "token": {
                       "type": "string"
                     }
                   }
@@ -120,19 +126,25 @@
           "200": {
             "description": "Usuário autenticado com sucesso",
             "content": {
-              "application/json":{
-                "schema":{
+              "application/json": {
+                "schema": {
                   "type": "object",
                   "properties": {
-                    "user":{
+                    "user": {
                       "type": "object",
                       "properties": {
-                        "id":{"type": "string"},
-                        "name":{"type": "string"},
-                        "email":{"type": "string"}
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
                       }
                     },
-                    "token":{
+                    "token": {
                       "type": "string"
                     }
                   }
@@ -169,7 +181,10 @@
                     "type": "string"
                   }
                 },
-                "required": ["name", "email"]
+                "required": [
+                  "name",
+                  "email"
+                ]
               }
             }
           }
@@ -178,16 +193,22 @@
           "200": {
             "description": "Usuário alterado com sucesso",
             "content": {
-              "application/json":{
-                "schema":{
+              "application/json": {
+                "schema": {
                   "type": "object",
                   "properties": {
-                    "user":{
+                    "user": {
                       "type": "object",
                       "properties": {
-                        "id":{"type": "string"},
-                        "name":{"type": "string"},
-                        "email":{"type": "string"}
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -204,40 +225,52 @@
         }
       }
     },
-    "/contacts":{
+    "/contacts": {
       "get": {
         "summary": "Listar contatos",
         "description": "Lista contatos do usuário logado",
         "operationId": "listContacts",
         "responses": {
           "200": {
-            "description": "Listando os usuários",
+            "description": "Lista de contatos",
             "content": {
-              "application/json":{
-                "schema":{
+              "application/json": {
+                "schema": {
                   "type": "array",
-                  "items":{
+                  "items": {
                     "type": "object",
                     "properties": {
-                      "id":{"type": "string"},
-                      "name":{"type": "string"},
-                      "emails":{
-                        "type":"array",
-                        "items":{
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "emails": {
+                        "type": "array",
+                        "items": {
                           "type": "object",
                           "properties": {
-                            "id": {"type": "string"},
-                            "address": {"type": "string"}
+                            "id": {
+                              "type": "string"
+                            },
+                            "address": {
+                              "type": "string"
+                            }
                           }
                         }
                       },
-                      "phoneNumbers":{
-                        "type":"array",
-                        "items":{
+                      "phoneNumbers": {
+                        "type": "array",
+                        "items": {
                           "type": "object",
                           "properties": {
-                            "id": {"type": "string"},
-                            "number": {"type": "string"}
+                            "id": {
+                              "type": "string"
+                            },
+                            "number": {
+                              "type": "string"
+                            }
                           }
                         }
                       }
@@ -246,6 +279,80 @@
                 }
               }
             }
+          }
+        }
+      },
+      "post": {
+        "summary": "Adicionar contato",
+        "description": "Adicionar contato ao usuário logado",
+        "operationId": "addContact",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "emails": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "phoneNumbers": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Adicionado um contato",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "id":{"type":"string"},
+                    "name":{"type":"string"},
+                    "emails":{
+                      "type": "array",
+                      "items":{
+                        "type": "object",
+                        "properties": {
+                          "id":{"type":"string"},
+                          "address":{"type": "string"}
+                        }
+                      }
+                    },
+                    "phoneNumbers":{
+                      "type": "array",
+                      "items":{
+                        "type": "object",
+                        "properties": {
+                          "id":{"type":"string"},
+                          "number":{"type": "string"}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos para criação de contato"
           }
         }
       }
