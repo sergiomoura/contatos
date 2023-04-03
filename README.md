@@ -2,7 +2,7 @@
 
 A Contatos API é um backend que disponibiliza endpoints úteis para o desenvolvimento de um sistema de gestão de contatos.
 Os endpoints permitem que os usuários possam se cadastrar e adicionar contatos com emails e números de telefone.
-O propósito desse projeto é ter um backend sólido e bem documentado para servir de base para exercícios de desenvolvimentos de frontend.
+O propósito desse projeto é ter um backend sólido e bem documentado para servir de base para exercícios de desenvolvimento de frontend.
 
 ## Documentação
 
