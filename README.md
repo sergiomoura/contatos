@@ -1,22 +1,38 @@
 # Contatos API
 
-A Contatos API é um backend que disponibiliza endpoints úteis para o desenvolvimento de um sistema de gestão de contatos.
-Os endpoints permitem que os usuários possam se cadastrar e adicionar contatos com emails e números de telefone.
 O propósito desse projeto é ter um backend sólido e bem documentado para servir de base para exercícios de desenvolvimento de frontend.
 
-## Documentação
+Trata-se de um backend que disponibiliza endpoints úteis para o desenvolvimento de um sistema de gestão de contatos. Foi desenvolvida aplicando conceitos da Clean Architecture em TypeScript.
 
-A documentação da API pode ser encontrada em: [https://sergiomoura.github.io/contatos-api/](https://sergiomoura.github.io/contatos-api/)
+Os endpoints permitem que os usuários possam se cadastrar e adicionar contatos com emails e números de telefone.
 
-<!-- ## Endpoints
+## Links
+
+API disponível em [https://contatos-api.fly.dev/api/v1/](https://contatos-api.fly.dev/api/v1/)
+
+A documentação da API: [https://sergiomoura.github.io/contatos-api/](https://sergiomoura.github.io/contatos-api/)
+
+Demo HTML Template: [https://sergiomoura.github.io/contatos-html-template/](https://sergiomoura.github.io/contatos-html-template/)
+
+Repositório HTML template: [https://github.com/sergiomoura/contatos-html-template](https://github.com/sergiomoura/contatos-html-template)
+
+
+ ## Endpoints
+
+**Url Base:** https://contatos-api.fly.dev/api/v1/
 
 | Método HTTP | Endpoint | Descrição |
 | --- | --- | --- |
-| GET | /contatos | Retorna todos os contatos cadastrados |
-| GET | /contatos/{id} | Retorna um contato específico |
-| POST | /contatos | Adiciona um novo contato |
-| PUT | /contatos/{id} | Atualiza as informações de um contato existente |
-| DELETE | /contatos/{id} | Deleta um contato | -->
+| POST | /auth/register | Utilizado para cadastro de usuário |
+| POST | /auth/login | Utilizado para autenticação do usuário |
+| GET | /contacts | Retorna todos os contatos cadastrados do usuário |
+| POST | /contacts | Cria novo contato para usuário |
+| DELETE | /contacts/{contactId} | Remove um contato cadastrado |
+| POST | /contacts/{contactId}/emails | Cria novo e-mail para contato |
+| DELETE | /contacts/{contactId}/emails/{emailId} | Remove e-mail de contato |
+| POST | /contacts/{contactId}/phones | Cria novo telefone para contato |
+| DELETE | /contacts/{contactId}/emails/{phoneId} | Remove telefone de contato |
+
 
 <!-- ## Roadmap
 
@@ -38,7 +54,7 @@ A seguir estão os próximos passos para o desenvolvimento da API: -->
     - `JWT_SECRET`: Chave secreta para geração de tokens JWT de autenticação
 4. Inicie o servidor: `npm start` -->
 
-<!-- ## Contribuindo
+## Contribuindo
 
 Para contribuir com o projeto, siga as instruções abaixo:
 
