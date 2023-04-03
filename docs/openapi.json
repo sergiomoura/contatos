@@ -418,7 +418,7 @@
                   }
                 },
                 "required": [
-                  "email"
+                  "address"
                 ]
               }
             }
@@ -477,6 +477,95 @@
           },
           "404":{
             "description": "E-mail não encontrado"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/phones": {
+      "post": {
+        "summary": "Adicionar telefone",
+        "description": "Adicionar telefone a contato do usuário logado",
+        "operationId": "addPhone",
+        "tags": ["Telefone"],
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": "ID do contato ao qual o telefone será adicionado",
+            "required": true,
+            "schema":{
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "number": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "number"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Adicionado telefone à contato",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "id":{"type":"string"},
+                    "number":{"type":"string"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/phones/{phoneId}":{
+      "delete": {
+        "summary": "Remover telefone",
+        "description": "Remove telefone de um contato do usuário logado",
+        "operationId": "removePhone",
+        "tags": ["Telefone"],
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": "ID do contato ao qual do o e-mail será removido",
+            "required": true,
+            "schema":{
+              "type": "string"
+            }
+          },
+          {
+            "name": "phoneId",
+            "in": "path",
+            "description": "ID do telefone que será removido",
+            "required": true,
+            "schema":{
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204":{
+            "description": "Telefone removido com sucesso"
+          },
+          "404":{
+            "description": "Telefone não encontrado"
           }
         }
       }
