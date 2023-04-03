@@ -230,6 +230,7 @@
         "summary": "Listar contatos",
         "description": "Lista contatos do usuário logado",
         "operationId": "listContacts",
+        "tags": ["Contato"],
         "responses": {
           "200": {
             "description": "Lista de contatos",
@@ -286,6 +287,7 @@
         "summary": "Adicionar contato",
         "description": "Adicionar contato ao usuário logado",
         "operationId": "addContact",
+        "tags": ["Contato"],
         "requestBody": {
           "required": true,
           "content": {
@@ -361,6 +363,7 @@
       "delete": {
         "summary": "Remover um contato",
         "operationId": "deleteContact",
+        "tags": ["Contato"],
         "description": "Remove um contato existente na aplicação",
         "parameters": [
           {
