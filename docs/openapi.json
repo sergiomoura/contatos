@@ -62,7 +62,27 @@
         },
         "responses": {
           "201": {
-            "description": "Usuário registrado com sucesso"
+            "description": "Usuário registrado com sucesso",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "user":{
+                      "type": "object",
+                      "properties": {
+                        "id":{"type": "string"},
+                        "name":{"type": "string"},
+                        "email":{"type": "string"}
+                      }
+                    },
+                    "token":{
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
             "description": "Dados inválidos para criação de usuário"
@@ -98,7 +118,27 @@
         },
         "responses": {
           "200": {
-            "description": "Usuário autenticado com sucesso"
+            "description": "Usuário autenticado com sucesso",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "user":{
+                      "type": "object",
+                      "properties": {
+                        "id":{"type": "string"},
+                        "name":{"type": "string"},
+                        "email":{"type": "string"}
+                      }
+                    },
+                    "token":{
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "Credenciais inválidas"
