@@ -146,6 +146,64 @@
         }
       }
     },
+    "/profile": {
+      "put": {
+        "operationId": "updateUser",
+        "security": [],
+        "summary": "Atualizar dados de usuário",
+        "description": "Atualizar dados de um usuário existente",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuário alterado com sucesso",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "user":{
+                      "type": "object",
+                      "properties": {
+                        "id":{"type": "string"},
+                        "name":{"type": "string"},
+                        "email":{"type": "string"}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos para alteração de usuário"
+          },
+          "409": {
+            "description": "Email já cadastrado"
+          }
+        }
+      }
+    },
     "/contacts/{contactId}": {
       "delete": {
         "summary": "Remover um contato",
