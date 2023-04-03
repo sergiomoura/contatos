@@ -388,6 +388,98 @@
           }
         }
       }
+    },
+    "/contacts/{contactId}/emails": {
+      "post": {
+        "summary": "Adicionar email",
+        "description": "Adicionar email a contato do usuário logado",
+        "operationId": "addEmail",
+        "tags": ["E-mail"],
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": "ID do contato ao qual o e-mail será adicionado",
+            "required": true,
+            "schema":{
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Adicionado e-mail à contato",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "id":{"type":"string"},
+                    "address":{"type":"string"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Endereço de e-mail inválido"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/emails/{emailId}":{
+      "delete": {
+        "summary": "Remover email",
+        "description": "Remove email de um contato do usuário logado",
+        "operationId": "removeEmail",
+        "tags": ["E-mail"],
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": "ID do contato ao qual do o e-mail será removido",
+            "required": true,
+            "schema":{
+              "type": "string"
+            }
+          },
+          {
+            "name": "emailId",
+            "in": "path",
+            "description": "ID do email que será removido",
+            "required": true,
+            "schema":{
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204":{
+            "description": "E-mail removido com sucesso"
+          },
+          "404":{
+            "description": "E-mail não encontrado"
+          }
+        }
+      }
     }
   }
 }
