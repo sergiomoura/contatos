@@ -1,3 +1,4 @@
+import { FailedResponses } from '@/errors/FailedResponses';
 import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Controller } from '@/types/Controller';
 
@@ -19,8 +20,17 @@ export class DeleteContactController implements Controller {
       return { status: 400 };
     
     }
-    await this.deleteContactUseCase.execute(userId, contactId);
-    return { status: 204 };
+
+    try {
+      
+      await this.deleteContactUseCase.execute(userId, contactId);
+      return { status: 204 };
+
+    } catch (error) {
+
+      return FailedResponses.unexistentContact;
+    
+    }
     
   }
 

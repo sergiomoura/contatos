@@ -27,6 +27,10 @@ export const FailedResponses = {
   forbiden: <Response>{
     status: 403,
     body: 'Acesso negado'
+  },
+  unexistentContact: <Response>{
+    status: 404,
+    body: 'Contato inexistente'
   }
 
 };
