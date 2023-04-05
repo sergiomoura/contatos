@@ -25,7 +25,7 @@ Repositório HTML template: [https://github.com/sergiomoura/contatos-html-templa
 | --- | --- | --- |
 | POST | /auth/register | Utilizado para cadastro de usuário |
 | POST | /auth/login | Utilizado para autenticação do usuário |
-| GET | /contacts | Retorna todos os contatos cadastrados do usuário |
+| GET | /contacts | Retorna todos os contatos do usuário |
 | POST | /contacts | Cria novo contato para usuário |
 | DELETE | /contacts/{contactId} | Remove um contato cadastrado |
 | POST | /contacts/{contactId}/emails | Cria novo e-mail para contato |
