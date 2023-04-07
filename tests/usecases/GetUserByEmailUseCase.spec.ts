@@ -1,7 +1,7 @@
 import { GetUserByEmailUseCase } from '@/usecases/GetUserByEmailUseCase';
 import { Errors } from '@/errors/Errors';
-import { Infra } from '@/Infra';
 import { describe, test, expect } from 'vitest';
+import { MemoryRepository } from '@/adapters/MemoryRepository/MemoryRepository';
 
 describe(
   'GetUserByEmail Specifications',
@@ -12,7 +12,7 @@ describe(
     const validPassword = '123456';
     const invalidEmail = 'invalid@email.com';
 
-    const repository = Infra.createRepository();
+    const repository = new MemoryRepository();
 
     const expectedUser = await repository.createUser(validName, validEmail, validPassword);
     const getUserByEmail = new GetUserByEmailUseCase(repository);
