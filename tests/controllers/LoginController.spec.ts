@@ -1,13 +1,13 @@
-import { LoginController } from '@/controllers/LoginController';
+import LoginController from '@/controllers/LoginController';
 import { type User } from '@/entities/User';
 import { CreateUserUseCase } from '@/usecases/CreateUserUseCase';
 import { GetUserByEmailUseCase } from '@/usecases/GetUserByEmailUseCase';
 import { VerifyUserUseCase } from '@/usecases/VerifyUserUseCase';
 import { FailedResponses } from '@/errors/FailedResponses';
-import { Infra } from '@/Infra';
 import { type Request } from '@/types/Request';
 import { Tokenizer } from '@/utils/Tokenizer';
 import { describe, test, expect } from 'vitest';
+import { MemoryRepository } from '@/adapters/MemoryRepository/MemoryRepository';
 
 describe(
   'LoginController Specification',
@@ -18,7 +18,7 @@ describe(
     const validPassword = '123456';
     const invalidEmail = 'invalid@email.com';
     const invalidPassword = '654321';
-    const repository = Infra.createRepository();
+    const repository = new MemoryRepository();
     const verifyUserUseCase = new VerifyUserUseCase(repository);
     const getUserByEmailUseCase = new GetUserByEmailUseCase(repository);
     const createUserUseCase = new CreateUserUseCase(repository);
