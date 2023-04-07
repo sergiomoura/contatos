@@ -1,9 +1,9 @@
 import { UseCase } from '@/types/UseCase';
-import { type ContactInDTO } from '../dtos/Contact.indto';
-import { Contact } from '../entities/Contact';
-import { Email } from '../entities/Email';
-import { PhoneNumber } from '../entities/PhoneNumber';
-import { type Repository } from '../repositories/Repository';
+import { type ContactInDTO } from '@/dtos/Contact.indto';
+import { Contact } from '@/entities/Contact';
+import { Email } from '@/entities/Email';
+import { PhoneNumber } from '@/entities/PhoneNumber';
+import { type Repository } from '@/types/Repository';
 
 export class AddContactUseCase extends UseCase {
 

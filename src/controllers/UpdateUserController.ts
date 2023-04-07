@@ -1,10 +1,10 @@
 import { type Controller } from '@/types/Controller';
 import { type Response } from '@/types/Response';
 import { FailedResponses } from '@/errors/FailedResponses';
-import { Mappers } from '../mappers/Mappers';
+import { Mappers } from '@/mappers/Mappers';
 import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
-import { type UserUpdateInDTO } from '../dtos/UserUpdate.indto';
-import { type UpdateUserUseCase } from '../usecases/UpdateUserUseCase';
+import { type UserUpdateInDTO } from '@/dtos/UserUpdate.indto';
+import { type UpdateUserUseCase } from '@/usecases/UpdateUserUseCase';
 
 export default class UpdateUserController implements Controller {
 

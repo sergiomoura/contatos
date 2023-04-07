@@ -1,6 +1,6 @@
 import { Errors } from '@/errors/Errors';
-import { Email } from '../entities/Email';
-import { type Repository } from '../repositories/Repository';
+import { Email } from '@/entities/Email';
+import { type Repository } from '@/types/Repository';
 import { UseCase } from '@/types/UseCase';
 
 export class AddEmailUseCase extends UseCase {

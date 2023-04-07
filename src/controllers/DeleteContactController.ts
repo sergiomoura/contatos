@@ -3,7 +3,7 @@ import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Controller } from '@/types/Controller';
 
 import { type Response } from '@/types/Response';
-import { type DeleteContactUseCase } from '../usecases/DeleteContactUseCase';
+import { type DeleteContactUseCase } from '@/usecases/DeleteContactUseCase';
 
 export default class DeleteContactController implements Controller {
 

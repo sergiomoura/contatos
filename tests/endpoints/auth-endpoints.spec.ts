@@ -1,5 +1,5 @@
 import { describe, test, expect, afterAll } from 'vitest';
-import { Routes } from '@/app/Routes';
+import { Routes } from '@/Routes';
 import { EnvType, Infra } from '@/Infra';
 import { FailedResponses } from '@/errors/FailedResponses';
 

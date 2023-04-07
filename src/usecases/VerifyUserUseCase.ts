@@ -1,5 +1,5 @@
 import { crypter } from '@/utils/Crypter';
-import { type Repository } from '../repositories/Repository';
+import { type Repository } from '@/types/Repository';
 import { UseCase } from '@/types/UseCase';
 
 export class VerifyUserUseCase extends UseCase {

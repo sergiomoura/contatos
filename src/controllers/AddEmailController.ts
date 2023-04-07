@@ -1,9 +1,9 @@
 import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Controller } from '@/types/Controller';
 import { type Response } from '@/types/Response';
-import { type EmailInDTO } from '../dtos/Email.indto';
-import { Mappers } from '../mappers/Mappers';
-import { type AddEmailUseCase } from '../usecases/AddEmailUseCase';
+import { type EmailInDTO } from '@/dtos/Email.indto';
+import { Mappers } from '@/mappers/Mappers';
+import { type AddEmailUseCase } from '@/usecases/AddEmailUseCase';
 
 export default class AddEmailController implements Controller {
 

@@ -1,4 +1,4 @@
-import { Infra } from '@/Infra';
+import jsonValidator from '@/utils/JsonValidator';
 import { describe, expect, test } from 'vitest';
 
 const schema = {
@@ -31,8 +31,6 @@ const invalidData = {
   email: 'jonhdoe@test.com',
   password: '123456'
 };
-
-const jsonValidator = Infra.createJsonValidator();
 
 describe(
   'JsonValidator specifications',

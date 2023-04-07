@@ -1,4 +1,4 @@
-import { CheckRequestAuthentication } from '@/app/middlewares/CheckRequestAuthentication.mw';
+import { CheckRequestAuthentication } from '@/middlewares/CheckRequestAuthentication.mw';
 import { FailedResponses } from '@/errors/FailedResponses';
 import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Request } from '@/types/Request';

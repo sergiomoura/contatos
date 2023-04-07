@@ -2,7 +2,7 @@ import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Controller } from '@/types/Controller';
 
 import { type Response } from '@/types/Response';
-import { type DeleteEmailUseCase } from '../usecases/DeleteEmailUseCase';
+import { type DeleteEmailUseCase } from '@/usecases/DeleteEmailUseCase';
 
 export default class DeleteEmailController implements Controller {
 

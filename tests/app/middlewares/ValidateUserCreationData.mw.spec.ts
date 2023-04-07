@@ -1,4 +1,4 @@
-import { ValidateUserCreationData } from '@/app/middlewares/ValidateUserCreationData.mw';
+import { ValidateUserCreationData } from '@/middlewares/ValidateUserCreationData.mw';
 import { FailedResponses } from '@/errors/FailedResponses';
 import { type Request } from '@/types/Request';
 import { describe, test, expect } from 'vitest';

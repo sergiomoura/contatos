@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
-import { Contact } from '@/app/entities/Contact';
-import { Email } from '@/app/entities/Email';
-import { PhoneNumber } from '@/app/entities/PhoneNumber';
+import { Contact } from '@/entities/Contact';
+import { Email } from '@/entities/Email';
+import { PhoneNumber } from '@/entities/PhoneNumber';
 
 describe(
 

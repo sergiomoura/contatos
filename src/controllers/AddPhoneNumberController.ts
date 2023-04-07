@@ -1,9 +1,9 @@
 import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Controller } from '@/types/Controller';
 import { type Response } from '@/types/Response';
-import { type PhoneNumberInDTO } from '../dtos/PhoneNumber.indto';
-import { Mappers } from '../mappers/Mappers';
-import { type AddPhoneNumberUseCase } from '../usecases/AddPhoneNumberUseCase';
+import { type PhoneNumberInDTO } from '@/dtos/PhoneNumber.indto';
+import { Mappers } from '@/mappers/Mappers';
+import { type AddPhoneNumberUseCase } from '@/usecases/AddPhoneNumberUseCase';
 
 export default class AddPhoneNumberController implements Controller {
 

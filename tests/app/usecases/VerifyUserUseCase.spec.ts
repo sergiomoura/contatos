@@ -1,5 +1,5 @@
-import { CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
-import { VerifyUserUseCase } from '@/app/usecases/VerifyUserUseCase';
+import { CreateUserUseCase } from '@/usecases/CreateUserUseCase';
+import { VerifyUserUseCase } from '@/usecases/VerifyUserUseCase';
 import { Infra } from '@/Infra';
 import { describe, expect, test } from 'vitest';
 

@@ -1,5 +1,5 @@
 import { Errors } from '@/errors/Errors';
-import { type Repository } from '../repositories/Repository';
+import { type Repository } from '@/types/Repository';
 import { UseCase } from '@/types/UseCase';
 
 export class DeleteEmailUseCase extends UseCase {

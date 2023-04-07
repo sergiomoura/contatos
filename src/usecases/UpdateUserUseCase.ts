@@ -1,7 +1,7 @@
 import { crypter } from '@/utils/Crypter';
-import { type UserUpdateInDTO } from '../dtos/UserUpdate.indto';
-import { type User } from '../entities/User';
-import { type Repository } from '../repositories/Repository';
+import { type UserUpdateInDTO } from '@/dtos/UserUpdate.indto';
+import { type User } from '@/entities/User';
+import { type Repository } from '@/types/Repository';
 import { UseCase } from '@/types/UseCase';
 
 export class UpdateUserUseCase extends UseCase {

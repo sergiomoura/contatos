@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { PhoneNumber } from '@/app/entities/PhoneNumber';
+import { PhoneNumber } from '@/entities/PhoneNumber';
 
 describe(
 

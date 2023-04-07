@@ -1,8 +1,8 @@
 import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Controller } from '@/types/Controller';
 import { type Response } from '@/types/Response';
-import { Mappers } from '../mappers/Mappers';
-import { type ListContactsUseCase } from '../usecases/ListContactsUseCase';
+import { Mappers } from '@/mappers/Mappers';
+import { type ListContactsUseCase } from '@/usecases/ListContactsUseCase';
 
 export default class ListContactsController implements Controller {
 

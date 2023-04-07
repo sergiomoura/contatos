@@ -2,7 +2,7 @@ import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Controller } from '@/types/Controller';
 
 import { type Response } from '@/types/Response';
-import { type DeletePhoneNumberUseCase } from '../usecases/DeletePhoneNumberUseCase';
+import { type DeletePhoneNumberUseCase } from '@/usecases/DeletePhoneNumberUseCase';
 
 export default class DeletePhoneNumberController implements Controller {
 

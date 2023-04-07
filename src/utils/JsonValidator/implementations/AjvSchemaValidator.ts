@@ -1,5 +1,5 @@
-import { type JsonValidator } from '@/types/JsonValidator';
-import { type ValidationResult } from '@/types/ValidationResult';
+import { type JsonValidator } from '@/utils/JsonValidator/JsonValidator';
+import { type ValidationResult } from '@/utils/JsonValidator/ValidationResult';
 import Ajv from 'ajv';
 
 export class AjvSchemaValidator implements JsonValidator {

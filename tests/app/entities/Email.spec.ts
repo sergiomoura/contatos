@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { Email } from '@/app/entities/Email';
+import { Email } from '@/entities/Email';
 import { Errors } from '@/errors/Errors';
 describe(
 

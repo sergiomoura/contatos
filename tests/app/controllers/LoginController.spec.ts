@@ -1,8 +1,8 @@
-import { LoginController } from '@/app/controllers/LoginController';
-import { type User } from '@/app/entities/User';
-import { CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
-import { GetUserByEmailUseCase } from '@/app/usecases/GetUserByEmailUseCase';
-import { VerifyUserUseCase } from '@/app/usecases/VerifyUserUseCase';
+import { LoginController } from '@/controllers/LoginController';
+import { type User } from '@/entities/User';
+import { CreateUserUseCase } from '@/usecases/CreateUserUseCase';
+import { GetUserByEmailUseCase } from '@/usecases/GetUserByEmailUseCase';
+import { VerifyUserUseCase } from '@/usecases/VerifyUserUseCase';
 import { FailedResponses } from '@/errors/FailedResponses';
 import { Infra } from '@/Infra';
 import { type Request } from '@/types/Request';

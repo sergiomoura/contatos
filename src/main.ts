@@ -1,45 +1,46 @@
-import { App } from '@/app/App';
-import { Infra } from './Infra';
-import { type Route } from './types/Route';
-import { RoutesFactory } from './app/RoutesFactory';
-import { HttpMethod } from './types/HttpMethod';
-import { MemoryRepository } from './app/repositories/adapters/MemoryRepository';
+import { ExpressWebApp } from '@/adapters/ExpressWebApp/ExpressWebApp';
 
-import GetOpenApiSpecController from './app/controllers/GetOpenApiSpecController';
-import CreateUserController from './app/controllers/CreateUserController';
-import LoginController from './app/controllers/LoginController';
-import UpdateUserController from './app/controllers/UpdateUserController';
-import ListContactsController from './app/controllers/ListContactsController';
-import AddContactController from './app/controllers/AddContactController';
-import DeleteContactController from './app/controllers/DeleteContactController';
-import AddEmailController from './app/controllers/AddEmailController';
-import DeleteEmailController from './app/controllers/DeleteEmailController';
-import AddPhoneNumberController from './app/controllers/AddPhoneNumberController';
-import DeletePhoneNumberController from './app/controllers/DeletePhoneNumberController';
+import { Infra } from '@/Infra';
+import { RoutesFactory } from '@/routesFactory/RoutesFactory';
+import { HttpMethod } from '@/types/HttpMethod';
+import { MemoryRepository } from '@/adapters/MemoryRepository/MemoryRepository';
 
-import { ValidateUserCreationData } from './app/middlewares/ValidateUserCreationData.mw';
-import { CheckRequestAuthentication } from './app/middlewares/CheckRequestAuthentication.mw';
-import { ValidateUserUpdateData } from './app/middlewares/ValidateUserUpdateData.mw';
-import { ValidateContactCreationData } from './app/middlewares/ValidateContactCreationData.mw';
-import { ValidateEmailCreationData } from './app/middlewares/ValidateEmailCreationData.mw';
-import { ValidatePhoneNumberCreationData } from './app/middlewares/ValidatePhoneNumberCreationData.mw';
+import GetOpenApiSpecController from '@/controllers/GetOpenApiSpecController';
+import CreateUserController from '@/controllers/CreateUserController';
+import LoginController from '@/controllers/LoginController';
+import UpdateUserController from '@/controllers/UpdateUserController';
+import ListContactsController from '@/controllers/ListContactsController';
+import AddContactController from '@/controllers/AddContactController';
+import DeleteContactController from '@/controllers/DeleteContactController';
+import AddEmailController from '@/controllers/AddEmailController';
+import DeleteEmailController from '@/controllers/DeleteEmailController';
+import AddPhoneNumberController from '@/controllers/AddPhoneNumberController';
+import DeletePhoneNumberController from '@/controllers/DeletePhoneNumberController';
 
-import { CreateUserUseCase } from './app/usecases/CreateUserUseCase';
-import { VerifyUserUseCase } from './app/usecases/VerifyUserUseCase';
-import { GetUserByEmailUseCase } from './app/usecases/GetUserByEmailUseCase';
-import { UpdateUserUseCase } from './app/usecases/UpdateUserUseCase';
-import { ListContactsUseCase } from './app/usecases/ListContactsUseCase';
-import { AddContactUseCase } from './app/usecases/AddContactUseCase';
-import { DeleteContactUseCase } from './app/usecases/DeleteContactUseCase';
-import { AddEmailUseCase } from './app/usecases/AddEmailUseCase';
-import { DeleteEmailUseCase } from './app/usecases/DeleteEmailUseCase';
-import { AddPhoneNumberUseCase } from './app/usecases/AddPhoneNumberUseCase';
-import { DeletePhoneNumberUseCase } from './app/usecases/DeletePhoneNumberUseCase';
+import { ValidateUserCreationData } from '@/middlewares/ValidateUserCreationData.mw';
+import { CheckRequestAuthentication } from '@/middlewares/CheckRequestAuthentication.mw';
+import { ValidateUserUpdateData } from '@/middlewares/ValidateUserUpdateData.mw';
+import { ValidateContactCreationData } from '@/middlewares/ValidateContactCreationData.mw';
+import { ValidateEmailCreationData } from '@/middlewares/ValidateEmailCreationData.mw';
+import { ValidatePhoneNumberCreationData } from '@/middlewares/ValidatePhoneNumberCreationData.mw';
 
+import { CreateUserUseCase } from '@/usecases/CreateUserUseCase';
+import { VerifyUserUseCase } from '@/usecases/VerifyUserUseCase';
+import { GetUserByEmailUseCase } from '@/usecases/GetUserByEmailUseCase';
+import { UpdateUserUseCase } from '@/usecases/UpdateUserUseCase';
+import { ListContactsUseCase } from '@/usecases/ListContactsUseCase';
+import { AddContactUseCase } from '@/usecases/AddContactUseCase';
+import { DeleteContactUseCase } from '@/usecases/DeleteContactUseCase';
+import { AddEmailUseCase } from '@/usecases/AddEmailUseCase';
+import { DeleteEmailUseCase } from '@/usecases/DeleteEmailUseCase';
+import { AddPhoneNumberUseCase } from '@/usecases/AddPhoneNumberUseCase';
+import { DeletePhoneNumberUseCase } from '@/usecases/DeletePhoneNumberUseCase';
+
+const webApp = new ExpressWebApp();
 const repository = new MemoryRepository();
 const routesFactory = new RoutesFactory(repository);
 
-const routes: Route[] = [
+const routes = [
   routesFactory.build(HttpMethod.GET, '/api/v1/docs', GetOpenApiSpecController),
   routesFactory.build(HttpMethod.POST, '/api/v1/auth/register', CreateUserController, [ValidateUserCreationData], [CreateUserUseCase]),
   routesFactory.build(HttpMethod.POST, '/api/v1/auth/login', LoginController, [], [VerifyUserUseCase, GetUserByEmailUseCase]),
@@ -51,8 +52,7 @@ const routes: Route[] = [
   routesFactory.build(HttpMethod.DELETE, '/api/v1/contacts/:contactId/emails/:emailId', DeleteEmailController, [CheckRequestAuthentication], [DeleteEmailUseCase]),
   routesFactory.build(HttpMethod.POST, '/api/v1/contacts/:contactId/phones', AddPhoneNumberController, [CheckRequestAuthentication, ValidatePhoneNumberCreationData], [AddPhoneNumberUseCase]),
   routesFactory.build(HttpMethod.DELETE, '/api/v1/contacts/:contactId/phones/:phoneId', DeletePhoneNumberController, [CheckRequestAuthentication], [DeletePhoneNumberUseCase])
-
 ];
 
-App.setRoutes(routes);
-App.listen(Infra.getPort());
+webApp.setRoutes(routes);
+webApp.listen(Infra.getPort());

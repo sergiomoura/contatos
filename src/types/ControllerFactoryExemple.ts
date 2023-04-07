@@ -1,12 +1,12 @@
-import { type Repository } from '@/app/repositories/Repository';
-import { type UserInDTO } from '@/app/dtos/UserContact.indto';
-import { type User } from '@/app/entities/User';
+import { type Repository } from '@/repositories/Repository';
+import { type UserInDTO } from '@/dtos/UserContact.indto';
+import { type User } from '@/entities/User';
 import { Errors } from '@/errors/Errors';
 import { crypter } from '@/utils/Crypter';
 import { type Controller } from './Controller';
 import { type Request } from '@/types/Request';
 import { type Response } from '@/types/Response';
-import { Mappers } from '@/app/mappers/Mappers';
+import { Mappers } from '@/mappers/Mappers';
 import { Tokenizer } from '@/utils/Tokenizer';
 import { FailedResponses } from '@/errors/FailedResponses';
 import { Infra } from '@/Infra';

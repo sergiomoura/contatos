@@ -1,8 +1,8 @@
-import { type Repository } from '@/app/repositories/Repository';
-import { type User } from '@/app/entities/User';
+import { type Repository } from '@/types/Repository';
+import { type User } from '@/entities/User';
 import { crypter } from '@/utils/Crypter';
 import { Errors } from '@/errors/Errors';
-import { type UserInDTO } from '../dtos/UserContact.indto';
+import { type UserInDTO } from '@/dtos/UserContact.indto';
 import { UseCase } from '@/types/UseCase';
 
 export class CreateUserUseCase extends UseCase {

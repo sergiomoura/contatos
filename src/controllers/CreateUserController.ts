@@ -1,11 +1,11 @@
 import { type Request } from '@/types/Request';
 import { type Controller } from '@/types/Controller';
-import { type CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
+import { type CreateUserUseCase } from '@/usecases/CreateUserUseCase';
 import { type Response } from '@/types/Response';
 import { FailedResponses } from '@/errors/FailedResponses';
 import { Tokenizer } from '@/utils/Tokenizer';
-import { Mappers } from '../mappers/Mappers';
-import { type UserInDTO } from '../dtos/UserContact.indto';
+import { Mappers } from '@/mappers/Mappers';
+import { type UserInDTO } from '@/dtos/UserContact.indto';
 
 export default class CreateUserController implements Controller {
 

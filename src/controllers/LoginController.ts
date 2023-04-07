@@ -3,9 +3,9 @@ import { type Controller } from '@/types/Controller';
 import { type Request } from '@/types/Request';
 import { type Response } from '@/types/Response';
 import { Tokenizer } from '@/utils/Tokenizer';
-import { Mappers } from '../mappers/Mappers';
-import { type GetUserByEmailUseCase } from '../usecases/GetUserByEmailUseCase';
-import { type VerifyUserUseCase } from '../usecases/VerifyUserUseCase';
+import { Mappers } from '@/mappers/Mappers';
+import { type GetUserByEmailUseCase } from '@/usecases/GetUserByEmailUseCase';
+import { type VerifyUserUseCase } from '@/usecases/VerifyUserUseCase';
 
 interface LoginBody {
   email: string

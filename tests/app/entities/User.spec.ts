@@ -1,4 +1,4 @@
-import { User } from '@/app/entities/User';
+import { User } from '@/entities/User';
 import { describe, expect, test } from 'vitest';
 
 describe(

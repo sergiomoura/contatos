@@ -1,9 +1,9 @@
-import { Contact } from '@/app/entities/Contact';
-import { Email } from '@/app/entities/Email';
-import { PhoneNumber } from '@/app/entities/PhoneNumber';
-import { AddContactUseCase } from '@/app/usecases/AddContactUseCase';
-import { CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
-import { ListContactsUseCase } from '@/app/usecases/ListContactsUseCase';
+import { Contact } from '@/entities/Contact';
+import { Email } from '@/entities/Email';
+import { PhoneNumber } from '@/entities/PhoneNumber';
+import { AddContactUseCase } from '@/usecases/AddContactUseCase';
+import { CreateUserUseCase } from '@/usecases/CreateUserUseCase';
+import { ListContactsUseCase } from '@/usecases/ListContactsUseCase';
 import { Errors } from '@/errors/Errors';
 import { Infra } from '@/Infra';
 import { describe, expect, test } from 'vitest';

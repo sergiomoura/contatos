@@ -1,4 +1,4 @@
-import { type Response } from '../types/Response';
+import { type Response } from '@/types/Response';
 export const FailedResponses = {
   invalidDataForUserCreation: <Response> {
     status: 400,

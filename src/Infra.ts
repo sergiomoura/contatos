@@ -1,32 +1,7 @@
-import { AjvSchemaValidator } from './app/adapters/AjvSchemaValidator/AjvSchemaValidator';
-import { ExpressWebApp } from './app/adapters/ExpressWebApp/ExpressWebApp';
-import { MemoryRepository } from './app/repositories/adapters/MemoryRepository';
-import { type Repository } from './app/repositories/Repository';
-import { type JsonValidator } from './types/JsonValidator';
-import { type WebApp } from './types/WebApp';
-
 export enum EnvType {
   PROD = 'production',
   DEV = 'development',
   TEST = 'test'
-}
-
-function createWebApp (): WebApp {
-
-  return new ExpressWebApp();
-
-}
-
-function createRepository (): Repository {
-
-  return new MemoryRepository();
-
-}
-
-function createJsonValidator (): JsonValidator {
-
-  return new AjvSchemaValidator();
-
 }
 
 const PORT_PROD = 8080;
@@ -57,9 +32,6 @@ function getPort (env?: EnvType): number {
 }
 
 const Infra = {
-  createWebApp,
-  createRepository,
-  createJsonValidator,
   getPort
 };
 

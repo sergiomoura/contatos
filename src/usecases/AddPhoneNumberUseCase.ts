@@ -1,6 +1,6 @@
 import { Errors } from '@/errors/Errors';
-import { PhoneNumber } from '../entities/PhoneNumber';
-import { type Repository } from '../repositories/Repository';
+import { PhoneNumber } from '@/entities/PhoneNumber';
+import { type Repository } from '@/types/Repository';
 import { UseCase } from '@/types/UseCase';
 
 export class AddPhoneNumberUseCase extends UseCase {

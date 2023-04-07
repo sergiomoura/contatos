@@ -1,10 +1,10 @@
-import { Contact } from '@/app/entities/Contact';
-import { Email } from '@/app/entities/Email';
-import { PhoneNumber } from '@/app/entities/PhoneNumber';
-import { User } from '@/app/entities/User';
+import { Contact } from '@/entities/Contact';
+import { Email } from '@/entities/Email';
+import { PhoneNumber } from '@/entities/PhoneNumber';
+import { User } from '@/entities/User';
 import { Errors } from '@/errors/Errors';
-import { MemoryRepository } from '@/app/repositories/adapters/MemoryRepository';
-import { type Repository } from '@/app/repositories/Repository';
+import { MemoryRepository } from '@/repositories/adapters/MemoryRepository';
+import { type Repository } from '@/repositories/Repository';
 import { beforeEach, describe, expect, test } from 'vitest';
 
 describe(

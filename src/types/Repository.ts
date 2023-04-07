@@ -1,9 +1,7 @@
-import { type Contact } from '../entities/Contact';
-import { type Email } from '../entities/Email';
-import { type PhoneNumber } from '../entities/PhoneNumber';
-// import { type PhoneNumber } from '../entities/PhoneNumber';
-// import { type Contact } from '../entities/Contact';
-import { type User } from '../entities/User';
+import { type Contact } from '@/entities/Contact';
+import { type Email } from '@/entities/Email';
+import { type PhoneNumber } from '@/entities/PhoneNumber';
+import { type User } from '@/entities/User';
 
 export interface Repository {
   createUser: (name: string, email: string, password: string) => Promise<User>

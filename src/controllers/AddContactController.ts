@@ -1,9 +1,9 @@
 import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type Controller } from '@/types/Controller';
 import { type Response } from '@/types/Response';
-import { type ContactInDTO } from '../dtos/Contact.indto';
-import { Mappers } from '../mappers/Mappers';
-import { type AddContactUseCase } from '../usecases/AddContactUseCase';
+import { type ContactInDTO } from '@/dtos/Contact.indto';
+import { Mappers } from '@/mappers/Mappers';
+import { type AddContactUseCase } from '@/usecases/AddContactUseCase';
 
 export default class AddContactController implements Controller {
 

@@ -1,6 +1,6 @@
 /* eslint-disable padded-blocks */
-import { type Email } from '@/app/entities/Email';
-import { type PhoneNumber } from '@/app/entities/PhoneNumber';
+import { type Email } from '@/entities/Email';
+import { type PhoneNumber } from '@/entities/PhoneNumber';
 import { hash } from '@/utils/HashGenerator';
 
 export class Contact {

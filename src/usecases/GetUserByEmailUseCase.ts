@@ -1,6 +1,6 @@
 import { Errors } from '@/errors/Errors';
-import { type User } from '../entities/User';
-import { type Repository } from '../repositories/Repository';
+import { type User } from '@/entities/User';
+import { type Repository } from '@/types/Repository';
 import { UseCase } from '@/types/UseCase';
 
 export class GetUserByEmailUseCase extends UseCase {

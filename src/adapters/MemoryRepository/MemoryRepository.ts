@@ -1,9 +1,9 @@
-import { type Contact } from '@/app/entities/Contact';
-import { type Email } from '@/app/entities/Email';
-import { type PhoneNumber } from '@/app/entities/PhoneNumber';
-import { User } from '@/app/entities/User';
+import { type Contact } from '@/entities/Contact';
+import { type Email } from '@/entities/Email';
+import { type PhoneNumber } from '@/entities/PhoneNumber';
+import { User } from '@/entities/User';
 import { Errors } from '@/errors/Errors';
-import { type Repository } from '@/app/repositories/Repository';
+import { type Repository } from '@/types/Repository';
 
 class UserData {
 

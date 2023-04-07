@@ -1,4 +1,4 @@
-import { GetUserByEmailUseCase } from '@/app/usecases/GetUserByEmailUseCase';
+import { GetUserByEmailUseCase } from '@/usecases/GetUserByEmailUseCase';
 import { Errors } from '@/errors/Errors';
 import { Infra } from '@/Infra';
 import { describe, test, expect } from 'vitest';

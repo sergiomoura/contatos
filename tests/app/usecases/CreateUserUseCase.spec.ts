@@ -1,6 +1,6 @@
-import { User } from '@/app/entities/User';
+import { User } from '@/entities/User';
 import { Errors } from '@/errors/Errors';
-import { CreateUserUseCase } from '@/app/usecases/CreateUserUseCase';
+import { CreateUserUseCase } from '@/usecases/CreateUserUseCase';
 import { crypter } from '@/utils/Crypter';
 import { describe, expect, test } from 'vitest';
 import { Infra } from '@/Infra';
