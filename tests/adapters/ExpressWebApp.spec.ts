@@ -1,4 +1,4 @@
-import { Infra } from '@/Infra';
+import { ExpressWebApp } from '@/adapters/ExpressWebApp/ExpressWebApp';
 import { type Controller } from '@/types/Controller';
 import { HttpMethod } from '@/types/HttpMethod';
 import { type Middleware } from '@/types/Middleware';
@@ -41,7 +41,8 @@ const path3 = '/test/sub';
 const path4 = '/test/sub-a';
 const path5 = '/test/sub-b';
 const path6 = '/test/sub-c';
-const app = Infra.createWebApp();
+const app = new ExpressWebApp();
+
 const routes: Route[] = [
   {
     path: path1,
