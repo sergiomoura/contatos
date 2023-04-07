@@ -1,10 +1,15 @@
 import { Errors } from '@/errors/Errors';
 import { PhoneNumber } from '../entities/PhoneNumber';
 import { type Repository } from '../repositories/Repository';
+import { UseCase } from '@/types/UseCase';
 
-export class AddPhoneNumberUseCase {
+export class AddPhoneNumberUseCase extends UseCase {
 
-  constructor (private readonly repository: Repository) {}
+  constructor (protected readonly repository: Repository) {
+
+    super(repository);
+  
+  }
   
   async execute (userId: string, contactId: string, number: string): Promise<PhoneNumber> {
 

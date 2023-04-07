@@ -1,10 +1,15 @@
 import { Errors } from '@/errors/Errors';
 import { type User } from '../entities/User';
 import { type Repository } from '../repositories/Repository';
+import { UseCase } from '@/types/UseCase';
 
-export class GetUserByEmailUseCase {
+export class GetUserByEmailUseCase extends UseCase {
 
-  constructor (private readonly repository: Repository) {}
+  constructor (protected readonly repository: Repository) {
+
+    super(repository);
+  
+  }
   
   async execute (email: string): Promise<User> {
 

@@ -1,9 +1,15 @@
 import { Errors } from '@/errors/Errors';
 import { type Repository } from '../repositories/Repository';
+import { UseCase } from '@/types/UseCase';
 
-export class DeleteEmailUseCase {
+export class DeleteEmailUseCase extends UseCase {
 
-  constructor (private readonly repository: Repository) {}
+  constructor (protected readonly repository: Repository) {
+
+    super(repository);
+  
+  }
+
   async execute (userId: string, contactId: string, emailId: string): Promise<void> {
 
     const contacts = await this.repository.getContactsByUser(userId);

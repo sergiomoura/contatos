@@ -2,10 +2,15 @@ import { crypter } from '@/utils/Crypter';
 import { type UserUpdateInDTO } from '../dtos/UserUpdate.indto';
 import { type User } from '../entities/User';
 import { type Repository } from '../repositories/Repository';
+import { UseCase } from '@/types/UseCase';
 
-export class UpdateUserUseCase {
+export class UpdateUserUseCase extends UseCase {
 
-  constructor (private readonly repository: Repository) {}
+  constructor (protected readonly repository: Repository) {
+
+    super(repository);
+  
+  }
 
   async execute (userData: UserUpdateInDTO): Promise<User> {
 

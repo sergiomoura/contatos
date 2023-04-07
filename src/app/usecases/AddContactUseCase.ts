@@ -1,12 +1,18 @@
+import { UseCase } from '@/types/UseCase';
 import { type ContactInDTO } from '../dtos/Contact.indto';
 import { Contact } from '../entities/Contact';
 import { Email } from '../entities/Email';
 import { PhoneNumber } from '../entities/PhoneNumber';
 import { type Repository } from '../repositories/Repository';
 
-export class AddContactUseCase {
+export class AddContactUseCase extends UseCase {
 
-  constructor (private readonly repository: Repository) {}
+  constructor (protected readonly repository: Repository) {
+
+    super(repository);
+  
+  }
+
   async execute (userId: string, contactInDto: ContactInDTO): Promise<Contact> {
 
     const emails = (<string[]>(<unknown>contactInDto.emails));

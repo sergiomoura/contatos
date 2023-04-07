@@ -3,10 +3,11 @@ import { type User } from '@/app/entities/User';
 import { crypter } from '@/utils/Crypter';
 import { Errors } from '@/errors/Errors';
 import { type UserInDTO } from '../dtos/UserContact.indto';
+import { UseCase } from '@/types/UseCase';
 
-export class CreateUserUseCase {
+export class CreateUserUseCase extends UseCase {
 
-  constructor (private readonly repository: Repository) {}
+  constructor (protected readonly repository: Repository) { super(repository); }
 
   async execute (userInDto: UserInDTO): Promise<User> {
 

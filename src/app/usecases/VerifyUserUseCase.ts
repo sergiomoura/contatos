@@ -1,9 +1,14 @@
 import { crypter } from '@/utils/Crypter';
 import { type Repository } from '../repositories/Repository';
+import { UseCase } from '@/types/UseCase';
 
-export class VerifyUserUseCase {
+export class VerifyUserUseCase extends UseCase {
 
-  constructor (private readonly repository: Repository) {}
+  constructor (protected readonly repository: Repository) {
+
+    super(repository);
+  
+  }
   
   async execute (email: string, password: string): Promise<boolean> {
 
