@@ -1,7 +1,7 @@
 import { CreateUserUseCase } from '@/usecases/CreateUserUseCase';
 import { VerifyUserUseCase } from '@/usecases/VerifyUserUseCase';
-import { Infra } from '@/Infra';
 import { describe, expect, test } from 'vitest';
+import { MemoryRepository } from '@/adapters/MemoryRepository/MemoryRepository';
 
 describe(
 
@@ -15,7 +15,7 @@ describe(
     const invalidEmail = 'email@invalid.com';
     const invalidPassword = '654321';
 
-    const repository = Infra.createRepository();
+    const repository = new MemoryRepository();
     const createUserUseCase = new CreateUserUseCase(repository);
     const verifyUserUseCase = new VerifyUserUseCase(repository);
 
