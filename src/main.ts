@@ -5,7 +5,7 @@ import { RoutesFactory } from './app/RoutesFactory';
 import { HttpMethod } from './types/HttpMethod';
 import { MemoryRepository } from './app/repositories/adapters/MemoryRepository';
 
-import GetOpenApiSpecController from './app/controllers/GetOpenApiSpec';
+import GetOpenApiSpecController from './app/controllers/GetOpenApiSpecController';
 import CreateUserController from './app/controllers/CreateUserController';
 import LoginController from './app/controllers/LoginController';
 import UpdateUserController from './app/controllers/UpdateUserController';
