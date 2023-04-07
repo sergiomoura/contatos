@@ -9,10 +9,10 @@ export class CheckRequestAuthentication implements Middleware {
 
   async handle (request: Request): Promise<AuthenticatedRequest | Response> {
     
-    const authHeader = (<string>(request.headers?.authorization));
+    const authHeader = (<string>(request.headers?.Authorization));
     
     if (authHeader === undefined) {
-
+      
       return FailedResponses.forbiden;
     
     }
@@ -33,7 +33,6 @@ export class CheckRequestAuthentication implements Middleware {
     
     }
 
-    // const authRequest = (<AuthenticatedRequest>Object.assign({}, request, { user: Tokenizer.decode(token) }));
     const authRequest = (<AuthenticatedRequest>request);
     authRequest.user = Tokenizer.decode(token);
     return authRequest;
