@@ -16,8 +16,7 @@ Demo HTML Template: [https://sergiomoura.github.io/contatos-html-template/](http
 
 Repositório HTML template: [https://github.com/sergiomoura/contatos-html-template](https://github.com/sergiomoura/contatos-html-template)
 
-
- ## Endpoints
+## Endpoints
 
 **Url Base:** https://contatos-api.fly.dev/api/v1/
 
@@ -32,7 +31,6 @@ Repositório HTML template: [https://github.com/sergiomoura/contatos-html-templa
 | DELETE | /contacts/{contactId}/emails/{emailId} | Remove e-mail de contato |
 | POST | /contacts/{contactId}/phones | Cria novo telefone para contato |
 | DELETE | /contacts/{contactId}/emails/{phoneId} | Remove telefone de contato |
-
 
 <!-- ## Roadmap
 
@@ -64,3 +62,42 @@ Para contribuir com o projeto, siga as instruções abaixo:
 4. Faça o commit das suas alterações: `git commit -m 'Implementando minha feature'`
 5. Faça o push para a sua branch: `git push origin minha-feature`
 6. Crie um Pull Request para o repositório original. -->
+
+## Para abrir uma **Issue**
+
+Você pode abrir uma issue caso note algum mal funcionamento sinta falta de alguma funcionalidade.
+O modelo abaixo não é obrigatório, mas pode guiar você para que forneça todas as informações necessárias para a resolução.
+´´´
+
+    ## Descrição do Problema
+
+    [Descreva aqui o problema ou tarefa em questão]
+
+    ## Etapas para reproduzir o problema (se aplicável)
+
+    [Se o problema estiver relacionado a um bug, forneça etapas claras para reproduzir o problema]
+
+    1. [Etapa 1]
+    2. [Etapa 2]
+    3. [Etapa 3]
+    ...
+
+    ## Comportamento esperado (se aplicável)
+
+    [Descreva o comportamento esperado do sistema ou da funcionalidade em questão]
+
+    ## Comportamento atual (se aplicável)
+
+    [Descreva o comportamento atual do sistema ou da funcionalidade em questão]
+
+    ## Capturas de tela (se aplicável)
+
+    [Se possível, inclua capturas de tela para ilustrar o problema ou a tarefa]
+
+    ## Solução proposta (se aplicável)
+
+    [Se você tiver uma solução proposta para o problema ou tarefa, descreva-a aqui]
+
+    ## Etiquetas
+
+    [Adicione as etiquetas relevantes para esta issue, como "bug", "feature", "documentation", etc.]
