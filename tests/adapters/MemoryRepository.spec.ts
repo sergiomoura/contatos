@@ -3,8 +3,8 @@ import { Email } from '@/entities/Email';
 import { PhoneNumber } from '@/entities/PhoneNumber';
 import { User } from '@/entities/User';
 import { Errors } from '@/errors/Errors';
-import { MemoryRepository } from '@/repositories/adapters/MemoryRepository';
-import { type Repository } from '@/repositories/Repository';
+import { MemoryRepository } from '@/adapters/MemoryRepository/MemoryRepository';
+import { type Repository } from '@/types/Repository';
 import { beforeEach, describe, expect, test } from 'vitest';
 
 describe(

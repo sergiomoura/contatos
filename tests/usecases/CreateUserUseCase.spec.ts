@@ -3,7 +3,7 @@ import { Errors } from '@/errors/Errors';
 import { CreateUserUseCase } from '@/usecases/CreateUserUseCase';
 import { crypter } from '@/utils/Crypter';
 import { describe, expect, test } from 'vitest';
-import { Infra } from '@/Infra';
+import { MemoryRepository } from '@/adapters/MemoryRepository/MemoryRepository';
 
 describe(
   
@@ -15,7 +15,7 @@ describe(
     const validEmail = 'jonhdoe@test.com';
     const validPassword = '123456';
     
-    const repository = Infra.createRepository();
+    const repository = new MemoryRepository();
     const createUserUseCase = new CreateUserUseCase(repository);
 
     test('Should create a user',

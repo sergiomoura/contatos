@@ -5,8 +5,8 @@ import { AddContactUseCase } from '@/usecases/AddContactUseCase';
 import { CreateUserUseCase } from '@/usecases/CreateUserUseCase';
 import { ListContactsUseCase } from '@/usecases/ListContactsUseCase';
 import { Errors } from '@/errors/Errors';
-import { Infra } from '@/Infra';
 import { describe, expect, test } from 'vitest';
+import { MemoryRepository } from '@/adapters/MemoryRepository/MemoryRepository';
 
 describe(
   'AddContactUseCase Specification',
@@ -20,7 +20,7 @@ describe(
     const validContactName = 'Test Silva';
     const invalidUserId = '0';
     
-    const repository = Infra.createRepository();
+    const repository = new MemoryRepository();
     const createUserUseCase = new CreateUserUseCase(repository);
     const user = await createUserUseCase.execute({ name: validName, email: validEmail, password: validPassword });
 
