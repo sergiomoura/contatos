@@ -4,7 +4,7 @@ import { type Response } from '@/types/Response';
 import { Mappers } from '../mappers/Mappers';
 import { type ListContactsUseCase } from '../usecases/ListContactsUseCase';
 
-export class ListContactsController implements Controller {
+export default class ListContactsController implements Controller {
 
   constructor (private readonly getContactsUseCase: ListContactsUseCase) {}
   async handle (request: AuthenticatedRequest): Promise<Response> {

@@ -5,7 +5,7 @@ import { type PhoneNumberInDTO } from '../dtos/PhoneNumber.indto';
 import { Mappers } from '../mappers/Mappers';
 import { type AddPhoneNumberUseCase } from '../usecases/AddPhoneNumberUseCase';
 
-export class AddPhoneNumberController implements Controller {
+export default class AddPhoneNumberController implements Controller {
 
   constructor (private readonly addPhoneNumberUseCase: AddPhoneNumberUseCase) {}
 

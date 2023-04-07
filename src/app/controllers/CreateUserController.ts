@@ -7,7 +7,7 @@ import { Tokenizer } from '@/utils/Tokenizer';
 import { Mappers } from '../mappers/Mappers';
 import { type UserInDTO } from '../dtos/UserContact.indto';
 
-export class CreateUserController implements Controller {
+export default class CreateUserController implements Controller {
 
   constructor (private readonly creatUserUseCase: CreateUserUseCase) {}
   async handle (request: Request): Promise<Response> {

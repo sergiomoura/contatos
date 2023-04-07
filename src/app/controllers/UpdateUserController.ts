@@ -6,7 +6,7 @@ import { type AuthenticatedRequest } from '@/types/AuthenticatedRequest';
 import { type UserUpdateInDTO } from '../dtos/UserUpdate.indto';
 import { type UpdateUserUseCase } from '../usecases/UpdateUserUseCase';
 
-export class UpdateUserController implements Controller {
+export default class UpdateUserController implements Controller {
 
   constructor (private readonly updateUserUseCase: UpdateUserUseCase) {}
   async handle (request: AuthenticatedRequest): Promise<Response> {

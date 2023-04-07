@@ -3,7 +3,7 @@ import { type Request } from '@/types/Request';
 import { type Response } from '@/types/Response';
 import * as apispec from '@/../docs/openapi.json';
 
-export class GetOpenApiSpecController implements Controller {
+export default class GetOpenApiSpecController implements Controller {
 
   async handle (request: Request): Promise<Response> {
 

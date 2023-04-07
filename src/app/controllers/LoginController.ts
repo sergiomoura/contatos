@@ -12,7 +12,7 @@ interface LoginBody {
   password: string
 }
 
-export class LoginController implements Controller {
+export default class LoginController implements Controller {
 
   constructor (
     private readonly verifyUserUseCase: VerifyUserUseCase,

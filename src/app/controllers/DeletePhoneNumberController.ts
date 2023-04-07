@@ -4,7 +4,7 @@ import { type Controller } from '@/types/Controller';
 import { type Response } from '@/types/Response';
 import { type DeletePhoneNumberUseCase } from '../usecases/DeletePhoneNumberUseCase';
 
-export class DeletePhoneNumberController implements Controller {
+export default class DeletePhoneNumberController implements Controller {
 
   constructor (private readonly deletePhoneNumberUseCase: DeletePhoneNumberUseCase) {}
 

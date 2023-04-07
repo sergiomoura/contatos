@@ -4,7 +4,7 @@ import { type Controller } from '@/types/Controller';
 import { type Response } from '@/types/Response';
 import { type DeleteEmailUseCase } from '../usecases/DeleteEmailUseCase';
 
-export class DeleteEmailController implements Controller {
+export default class DeleteEmailController implements Controller {
 
   constructor (private readonly deleteEmailUseCase: DeleteEmailUseCase) {}
 

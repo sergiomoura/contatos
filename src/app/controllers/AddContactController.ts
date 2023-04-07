@@ -5,7 +5,7 @@ import { type ContactInDTO } from '../dtos/Contact.indto';
 import { Mappers } from '../mappers/Mappers';
 import { type AddContactUseCase } from '../usecases/AddContactUseCase';
 
-export class AddContactController implements Controller {
+export default class AddContactController implements Controller {
 
   constructor (private readonly addContactsUseCase: AddContactUseCase) {}
   async handle (request: AuthenticatedRequest): Promise<Response> {

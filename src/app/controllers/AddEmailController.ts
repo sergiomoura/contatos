@@ -5,7 +5,7 @@ import { type EmailInDTO } from '../dtos/Email.indto';
 import { Mappers } from '../mappers/Mappers';
 import { type AddEmailUseCase } from '../usecases/AddEmailUseCase';
 
-export class AddEmailController implements Controller {
+export default class AddEmailController implements Controller {
 
   constructor (private readonly addEmailUseCase: AddEmailUseCase) {}
 
