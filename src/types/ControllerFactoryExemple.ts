@@ -1,4 +1,4 @@
-import { type Repository } from '@/repositories/Repository';
+import { type Repository } from '@/types/Repository';
 import { type UserInDTO } from '@/dtos/UserContact.indto';
 import { type User } from '@/entities/User';
 import { Errors } from '@/errors/Errors';
