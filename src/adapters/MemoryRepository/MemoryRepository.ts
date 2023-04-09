@@ -14,7 +14,13 @@ class UserData {
 
 export class MemoryRepository implements Repository {
 
-  private readonly users: UserData[] = [];
+  private users: UserData[] = [];
+
+  async clear (): Promise<void> {
+
+    this.users = [];
+  
+  }
 
   async createUser (name: string, email: string, password: string): Promise<User> {
 
