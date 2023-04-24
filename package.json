@@ -8,7 +8,8 @@
     "start": "ts-node -r tsconfig-paths/register --transpile-only src/main.ts",
     "test": "vitest --ui",
     "coverage": "vitest run --coverage",
-    "test:endpoints": "vitest --ui ./tests/endpoints/"
+    "test:endpoints": "vitest --ui ./tests/endpoints/",
+    "check-dependencies": "depcruise --config .dependency-cruiser.js src"
   },
   "devDependencies": {
     "@types/ajv": "^1.0.0",
@@ -21,6 +22,7 @@
     "@typescript-eslint/parser": "^5.49.0",
     "@vitest/coverage-istanbul": "^0.28.2",
     "@vitest/ui": "^0.28.2",
+    "dependency-cruiser": "^12.11.1",
     "eslint": "^8.32.0",
     "eslint-config-standard-with-typescript": "^32.0.0",
     "eslint-plugin-import": "^2.27.5",

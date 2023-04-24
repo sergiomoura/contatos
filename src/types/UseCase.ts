@@ -1,4 +1,4 @@
-import { type Repository } from '@/repositories/Repository';
+import { type Repository } from '@/types/Repository';
 
 export abstract class UseCase {
 
