@@ -4,7 +4,7 @@ import { type HttpMethod } from '@/types/HttpMethod';
 import { type Middleware } from '@/types/Middleware';
 import { type Route } from '@/types/Route';
 import { type UseCase } from '@/types/UseCase';
-import { type Repository } from './repositories/Repository';
+import { type Repository } from '@/types/Repository';
 
 type UseCaseClass = new(repository: Repository) => UseCase;
 type MiddlewareClass = new() => Middleware;
