@@ -15,6 +15,7 @@ export interface Repository {
   deleteEmail: (emailId: string) => Promise<void>
   deletePhoneNumber: (phoneId: string) => Promise<void>
   changeUserInfo: (userId: string, newName: string, newEmail: string, newPassword?: string) => Promise<User>
+  updateContact: (newContact: Contact) => Promise<Contact>
   clear: () => Promise<void>
   // TODO: changeContactInfo: (contactId: string, name: string) => Promise<void>
   // TODO: changePhoneNumber: (phoneId: string, newPhone: string) => Promise<PhoneNumber>

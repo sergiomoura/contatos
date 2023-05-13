@@ -72,6 +72,21 @@ export class MemoryRepository implements Repository {
   
   }
 
+  async updateContact (contact: Contact): Promise<Contact> {
+
+    const userData = this.findContactOwner(contact.id);
+    const index = userData.contacts.findIndex(c => c.id === contact.id);
+    const storedContact = userData.contacts[index];
+    if (storedContact === undefined) { throw Errors.unexistentContactError; }
+    
+    storedContact.emails = contact.emails;
+    storedContact.phoneNumbers = contact.phoneNumbers;
+    storedContact.name = contact.name;
+    
+    return storedContact;
+  
+  }
+
   async addEmailToContact (contactId: string, email: Email): Promise<void> {
 
     const contact = this.findContactById(contactId);

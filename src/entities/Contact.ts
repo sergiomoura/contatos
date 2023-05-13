@@ -10,33 +10,45 @@ export class Contact {
     return this._id;
   }
 
-  private readonly _name: string;
+  private _name: string;
   public get name (): string {
     return this._name;
   }
 
-  private readonly _emails: Email[];
+  public set name (value: string) {
+    this._name = value;
+  }
+
+  private _emails: Email[];
   public get emails (): Email[] {
     return this._emails;
   }
 
-  private readonly _phoneNumbers: PhoneNumber[];
+  public set emails (value: Email[]) {
+    this._emails = value;
+  }
+
+  private _phoneNumbers: PhoneNumber[];
   public get phoneNumbers (): PhoneNumber[] {
     return this._phoneNumbers;
   }
 
-  private constructor (name: string, emails: Email[] = [], phoneNumbers: PhoneNumber[] = []) {
+  public set phoneNumbers (value: PhoneNumber[]) {
+    this._phoneNumbers = value;
+  }
 
-    this._id = hash();
+  private constructor (name: string, emails: Email[] = [], phoneNumbers: PhoneNumber[] = [], id?: string) {
+
+    this._id = id === undefined ? hash() : id;
     this._name = name;
     this._emails = emails;
     this._phoneNumbers = phoneNumbers;
   
   }
 
-  static create (name: string, emails: Email[] = [], phoneNumbers: PhoneNumber[] = []): Contact {
+  static create (name: string, emails: Email[] = [], phoneNumbers: PhoneNumber[] = [], id?: string): Contact {
 
-    return new Contact(name, emails, phoneNumbers);
+    return new Contact(name, emails, phoneNumbers, id);
     
   }
 
