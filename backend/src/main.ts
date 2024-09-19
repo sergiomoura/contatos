@@ -56,3 +56,4 @@ const routes = [
 
 webApp.setRoutes(routes);
 webApp.listen(Infra.getPort());
+console.log(`ExpressWebApp listening on port ${Infra.getPort()}...`)
