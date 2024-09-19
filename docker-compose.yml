@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    container_name: contatos-frontend-container
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm start
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    container_name: contatos-backend-container
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+
+  # jenkins:
+  #   build: ./jenkins
+  #   container_name: jenkins-container
+  #   ports:
+  #     - "8080:8080"      # Porta padrão do Jenkins
+  #     - "50000:50000"    # Porta para comunicação com agentes do Jenkins
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock  # Jenkins acessa o Docker do host
+
+# volumes:
+#   jenkins-data: {}
