@@ -1,7 +1,7 @@
 import { type Controller } from '@/types/Controller';
 import { type Request } from '@/types/Request';
 import { type Response } from '@/types/Response';
-import * as apispec from '@/../docs/openapi.json';
+import * as apispec from '@/openapi.json';
 
 export default class GetOpenApiSpecController implements Controller {
 
