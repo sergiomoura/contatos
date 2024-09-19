@@ -8,7 +8,7 @@ services:
       - "4200:4200"
     volumes:
       - ./frontend:/app
-      - /app/node_modules
+      - ./frontend/node_modules:/app/node_modules:ro
     command: npm start
     depends_on:
       - backend
@@ -17,7 +17,10 @@ services:
     build: ./backend
     container_name: contatos-backend-container
     ports:
-      - "8080:8080"
+      - "5000:5000"
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
       - NODE_ENV=production
 
