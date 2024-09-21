@@ -33,17 +33,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock  # Jenkins acessa o Docker do host
 
-  # nginx:
-  #   image: nginx:alpine
-  #   container_name: contatos-proxy
-  #   ports:
-  #     - "80:80"          # Expor a porta 80 para o proxy
-  #   volumes:
-  #     - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-  #   depends_on:
-  #     - jenkins
-  #     - contatos-frontend
-  #     - contatos-backend
+  proxy:
+    image: nginx:alpine
+    container_name: contatos-proxy
+    ports:
+      - "80:80"          # Expor a porta 80 para o proxy
+    volumes:
+      - ./proxy/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - jenkins
+      - frontend
+      - backend
 
 volumes:
   jenkins-data: {}
